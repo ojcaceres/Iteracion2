@@ -39,6 +39,8 @@ public class Alojamiento implements VOAlojamiento
 	 * La ciudad donde se encuentra el bar
 	 */
 	private String nombre;
+
+	private String tipoOferta;
 	
 	/**
 	 * El presupuesto del bar (ALTO, MEDIO, BAJO)
@@ -120,6 +122,19 @@ public class Alojamiento implements VOAlojamiento
 	/**
 	 * @param ciudad - La nueva ciudad del bar
 	 */
+	public void setTipoOferta(String tipoOferta) 
+	{
+		this.tipoOferta = tipoOferta;
+	}
+	
+	public String getTipoOferta() 
+	{
+		return tipoOferta;
+	}
+	
+	/**
+	 * @param ciudad - La nueva ciudad del bar
+	 */
 	public void setTipo(String tipo) 
 	{
 		this.tipo = tipo;
@@ -149,7 +164,7 @@ public class Alojamiento implements VOAlojamiento
 	 */
 	public String toString() 
 	{
-		return "Alojamiento [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", ubicacion=" + ubicacion
+		return "Alojamiento [id=" + id + ", nombre=" + nombre + ", tipoOferta=" + tipoOferta + ", tipo=" + tipo + ", ubicacion=" + ubicacion
 				+ "]";
 	}
 	

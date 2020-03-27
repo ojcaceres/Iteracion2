@@ -24,7 +24,7 @@ public interface VOReserva
 
 	public long getPrecioTotal();
 
-	public I+nteger getDescuento();
+	public Integer getDescuento();
 
 	public Date getFechaConfirmacion();
 	

@@ -36,6 +36,7 @@ public interface VOAlojamiento
 	 */
 	public String getNombre();
 	
+	public String getTipoOferta();
 	/**
 	 * @return la ciudad del bar
 	 */
