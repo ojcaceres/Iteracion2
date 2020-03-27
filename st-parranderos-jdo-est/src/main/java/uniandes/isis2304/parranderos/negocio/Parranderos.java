@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
-import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
+import uniandes.isis2304.parranderos.persistencia.PersistenciaAlohandes;
 
 /**
  * Clase principal del negocio
@@ -29,7 +29,7 @@ import uniandes.isis2304.parranderos.persistencia.PersistenciaParranderos;
  *
  * @author Germán Bravo
  */
-public class Parranderos 
+public class Alohandes
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -37,7 +37,7 @@ public class Parranderos
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(Parranderos.class.getName());
+	private static Logger log = Logger.getLogger(Alohandes.class.getName());
 	
 	/* ****************************************************************
 	 * 			Atributos
@@ -45,7 +45,7 @@ public class Parranderos
 	/**
 	 * El manejador de persistencia
 	 */
-	private PersistenciaParranderos pp;
+	private PersistenciaAlohandes pp;
 	
 	/* ****************************************************************
 	 * 			Métodos
@@ -55,7 +55,7 @@ public class Parranderos
 	 */
 	public Parranderos ()
 	{
-		pp = PersistenciaParranderos.getInstance ();
+		pp = PersistenciaAlohandes.getInstance ();
 	}
 	
 	/**
@@ -64,7 +64,7 @@ public class Parranderos
 	 */
 	public Parranderos (JsonObject tableConfig)
 	{
-		pp = PersistenciaParranderos.getInstance (tableConfig);
+		pp = PersistenciaAlohandes.getInstance (tableConfig);
 	}
 	
 	/**
