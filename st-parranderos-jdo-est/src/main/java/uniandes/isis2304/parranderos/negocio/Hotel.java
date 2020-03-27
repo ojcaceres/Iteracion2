@@ -1,10 +1,9 @@
 package uniandes.isis2304.parranderos.negocio;
 
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Hotel  implements VOHotel
+public class Hotel implements VOHotel
 {
 	
 private long id;	
