@@ -91,18 +91,28 @@ public class PersistenciaParranderos
 	/**
 	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
 	 */
-	private SQLTipoBebida sqlTipoBebida;
+	private SQLAptoSemestre sqlAptoSemestre;
 	
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
 	 */
-	private SQLBebida sqlBebida;
+	private SQLAptoTemporada sqlAptoTemporada;
 	
 	/**
 	 * Atributo para el acceso a la tabla BAR de la base de datos
 	 */
-	private SQLBar sqlBar;
-	
+	private SQLAlojamiento sqlAlojamiento;
+	private SQLEmpresa sqlEmpresa;
+	private SQLCliente sqlCliente;
+	private SQLHostal sqlHostal;
+	private SQLHostalHabitacion sqlHostalHabitacion;
+	private SQLHotel sqlHotel;
+	private SQLHotelHabitacion sqlHotelHabitacion;
+	private SQLPropietario sqlPropietario;
+	private SQLProveedor sqlProveedor;
+	private SQLReserva sqlReserva;
+	private SQLServicio sqlServicio;
+	private SQLViviendaUniversitaria sqlViviendaUniversitaria;
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
 	 */
