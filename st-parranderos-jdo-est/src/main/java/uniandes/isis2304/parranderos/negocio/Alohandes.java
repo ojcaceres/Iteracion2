@@ -153,7 +153,7 @@ public class Alohandes
 	/**
 	 * Encuentra el Servicios en Alohandes con el nombre solicitado
 	 * Adiciona entradas al log de la aplicación
-	 * @param nombre - El nombre de la bebida
+	 * @param nombre - El nombre de la Alojamiento
 	 * @return Un objeto Servicio con el Servicios de ese nombre que conoce la aplicación, 
 	 * lleno con su información básica
 	 */
@@ -165,92 +165,92 @@ public class Alohandes
 	}
 
 	/* ****************************************************************
-	 * 			Métodos para manejar las BEBIDAS
+	 * 			Métodos para manejar las AlojamientoS
 	 *****************************************************************/
 	/**
-	 * Adiciona de manera persistente una bebida 
+	 * Adiciona de manera persistente una Alojamiento 
 	 * Adiciona entradas al log de la aplicación
-	 * @param nombre - El nombre la bebida
-	 * @param idServicio - El identificador del Servicio de la bebida - Debe existir un Servicio con este identificador
-	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
-	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
+	 * @param nombre - El nombre la Alojamiento
+	 * @param idServicio - El identificador del Servicio de la Alojamiento - Debe existir un Servicio con este identificador
+	 * @param gradoAlcohol - El grado de alcohol de la Alojamiento (Mayor que 0)
+	 * @return El objeto Alojamiento adicionado. null si ocurre alguna Excepción
 	 */
-	public Bebida adicionarProveedor (String nombre, String ubicacion, long tipooferta, long tipo)
+	public Alojamiento adicionarAlojamiento (String nombre, String ubicacion, long tipooferta, long tipo)
 	{
-		log.info ("Adicionando bebida " + nombre);
-		Bebida bebida = pp.adicionarBebida (nombre, ubicacion, tipooferta, tipo);
-        log.info ("Adicionando bebida: " + bebida);
-        return bebida;
+		log.info ("Adicionando Alojamiento " + nombre);
+		Alojamiento Alojamiento = pp.adicionarAlojamiento (nombre, ubicacion, tipooferta, tipo);
+        log.info ("Adicionando Alojamiento: " + Alojamiento);
+        return Alojamiento;
 	}
 	
 	/**
-	 * Elimina una bebida por su nombre
+	 * Elimina una Alojamiento por su nombre
 	 * Adiciona entradas al log de la aplicación
-	 * @param nombre - El nombre de la bebida a eliminar
+	 * @param nombre - El nombre de la Alojamiento a eliminar
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarBebidaPorNombre (String nombre)
+	public long eliminarAlojamientoPorNombre (String nombre)
 	{
-        log.info ("Eliminando bebida por nombre: " + nombre);
-        long resp = pp.eliminarBebidaPorNombre (nombre);
-        log.info ("Eliminando bebida por nombre: " + resp + " tuplas eliminadas");
+        log.info ("Eliminando Alojamiento por nombre: " + nombre);
+        long resp = pp.eliminarAlojamientoPorNombre (nombre);
+        log.info ("Eliminando Alojamiento por nombre: " + resp + " tuplas eliminadas");
         return resp;
 	}
 	
 	/**
-	 * Elimina una bebida por su identificador
+	 * Elimina una Alojamiento por su identificador
 	 * Adiciona entradas al log de la aplicación
-	 * @param idBebida - El identificador de la bebida a eliminar
+	 * @param idAlojamiento - El identificador de la Alojamiento a eliminar
 	 * @return El número de tuplas eliminadas (1 o 0)
 	 */
-	public long eliminarBebidaPorId (long idBebida)
+	public long eliminarAlojamientoPorId (long idAlojamiento)
 	{
-        log.info ("Eliminando bebida por id: " + idBebida);
-        long resp = pp.eliminarBebidaPorId (idBebida);
-        log.info ("Eliminando bebida por id: " + resp + " tuplas eliminadas");
+        log.info ("Eliminando Alojamiento por id: " + idAlojamiento);
+        long resp = pp.eliminarAlojamientoPorId (idAlojamiento);
+        log.info ("Eliminando Alojamiento por id: " + resp + " tuplas eliminadas");
         return resp;
 	}
 	
 	/**
-	 * Encuentra todas las bebida en Alohandes
+	 * Encuentra todas las Alojamiento en Alohandes
 	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de objetos Bebida con todos las bebidas que conoce la aplicación, llenos con su información básica
+	 * @return Una lista de objetos Alojamiento con todos las Alojamientos que conoce la aplicación, llenos con su información básica
 	 */
-	public List<Bebida> darBebidas ()
+	public List<Alojamiento> darAlojamientos ()
 	{
-        log.info ("Consultando Bebidas");
-        List<Bebida> bebidas = pp.darBebidas ();	
-        log.info ("Consultando Bebidas: " + bebidas.size() + " bebidas existentes");
-        return bebidas;
+        log.info ("Consultando Alojamientos");
+        List<Alojamiento> Alojamientos = pp.darAlojamientos ();	
+        log.info ("Consultando Alojamientos: " + Alojamientos.size() + " Alojamientos existentes");
+        return Alojamientos;
 	}
 
 	/**
 	 * Encuentra todos los Servicios en Alohandes y los devuelve como una lista de VOServicio
 	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de objetos VOBebida con todos las bebidas que conoce la aplicación, llenos con su información básica
+	 * @return Una lista de objetos VOAlojamiento con todos las Alojamientos que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOBebida> darVOBebidas ()
+	public List<VOAlojamiento> darVOAlojamientos ()
 	{
-		log.info ("Generando los VO de las bebidas");       
-        List<VOBebida> voBebidas = new LinkedList<VOBebida> ();
-        for (Bebida beb : pp.darBebidas ())
+		log.info ("Generando los VO de las Alojamientos");       
+        List<VOAlojamiento> voAlojamientos = new LinkedList<VOAlojamiento> ();
+        for (Alojamiento beb : pp.darAlojamientos ())
         {
-        	voBebidas.add (beb);
+        	voAlojamientos.add (beb);
         }
-        log.info ("Generando los VO de las bebidas: " + voBebidas.size() + " existentes");
-        return voBebidas;
+        log.info ("Generando los VO de las Alojamientos: " + voAlojamientos.size() + " existentes");
+        return voAlojamientos;
 	}
 
 	/**
-	 * Elimina las bebidas que no son servidas en ningún bar (No son referenciadas en ninguna tupla de SIRVEN)
+	 * Elimina las Alojamientos que no son servidas en ningún bar (No son referenciadas en ninguna tupla de SIRVEN)
 	 * Adiciona entradas al log de la aplicación
-	 * @return El número de bebidas eliminadas
+	 * @return El número de Alojamientos eliminadas
 	 */
-	public long eliminarBebidasNoServidas ()
+	public long eliminarAlojamientosNoServidas ()
 	{
-        log.info ("Borrando bebidas no servidas");
-        long resp = pp.eliminarBebidasNoServidas ();
-        log.info ("Borrando bebidas no servidas: " + resp + " bebidas eliminadas");
+        log.info ("Borrando Alojamientos no servidas");
+        long resp = pp.eliminarAlojamientosNoServidas ();
+        log.info ("Borrando Alojamientos no servidas: " + resp + " Alojamientos eliminadas");
         return resp;
 	}
 
@@ -349,11 +349,11 @@ public class Alohandes
  	}
 
 	/**
-	 * Encuentra un bebedor, su información básica y los bares y las bebidas 
+	 * Encuentra un bebedor, su información básica y los bares y las Alojamientos 
 	 * con las que está directamente relacionado, según su identificador
 	 * @param idBebedor - El identificador del bebedor buscado
 	 * @return Un objeto Bebedor que corresponde con el identificador buscado y lleno con su información básica y 
-	 * 		los bares y bebidas con los que está directamente relacionado<br>
+	 * 		los bares y Alojamientos con los que está directamente relacionado<br>
 	 * 			null, si un bebedor con dicho identificador no existe
 	 */
 	public Bebedor darBebedorCompleto (long idBebedor)
@@ -558,16 +558,16 @@ public class Alohandes
 	}
 	
 	/**
-	 * Encuentra los bares que conoce la aplicación y el número de bebidas que sirve cada uno, 
-	 * para aquellos bares que sirven por lo menos una bebida
+	 * Encuentra los bares que conoce la aplicación y el número de Alojamientos que sirve cada uno, 
+	 * para aquellos bares que sirven por lo menos una Alojamiento
 	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de parejas [IdBar, numBebidas]
+	 * @return Una lista de parejas [IdBar, numAlojamientos]
 	 */
-	public List<long []> darBaresYCantidadBebidasSirven ()
+	public List<long []> darBaresYCantidadAlojamientosSirven ()
 	{
-        log.info ("Listando Bares y cuántos bebidas sirven");
-        List<long []> tuplas = pp.darBaresYCantidadBebidasSirven ();
-        log.info ("Listando Bares y cuántos bebidas sirven: Listo!");
+        log.info ("Listando Bares y cuántos Alojamientos sirven");
+        List<long []> tuplas = pp.darBaresYCantidadAlojamientosSirven ();
+        log.info ("Listando Bares y cuántos Alojamientos sirven: Listo!");
         return tuplas;
 	}
 	
@@ -576,31 +576,31 @@ public class Alohandes
 	 *****************************************************************/
 
 	/**
-	 * Adiciona de manera persistente una preferencia de una bebida por un bebedor
+	 * Adiciona de manera persistente una preferencia de una Alojamiento por un bebedor
 	 * Adiciona entradas al log de la aplicación
 	 * @param idBebedor - El identificador del bebedor
-	 * @param idBebida - El identificador de la bebida
+	 * @param idAlojamiento - El identificador de la Alojamiento
 	 * @return Un objeto Gustan con los valores dados
 	 */
-	public Gustan adicionarGustan (long idBebedor, long idBebida)
+	public Gustan adicionarGustan (long idBebedor, long idAlojamiento)
 	{
-        log.info ("Adicionando gustan [" + idBebedor + ", " + idBebida + "]");
-        Gustan resp = pp.adicionarGustan (idBebedor, idBebida);
+        log.info ("Adicionando gustan [" + idBebedor + ", " + idAlojamiento + "]");
+        Gustan resp = pp.adicionarGustan (idBebedor, idAlojamiento);
         log.info ("Adicionando gustan: " + resp + " tuplas insertadas");
         return resp;
 	}
 	
 	/**
-	 * Elimina de manera persistente una preferencia de una bebida por un bebedor
+	 * Elimina de manera persistente una preferencia de una Alojamiento por un bebedor
 	 * Adiciona entradas al log de la aplicación
 	 * @param idBebedor - El identificador del bebedor
-	 * @param idBebida - El identificador de la bebida
+	 * @param idAlojamiento - El identificador de la Alojamiento
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarGustan (long idBebedor, long idBebida)
+	public long eliminarGustan (long idBebedor, long idAlojamiento)
 	{
         log.info ("Eliminando gustan");
-        long resp = pp.eliminarGustan (idBebedor, idBebida);
+        long resp = pp.eliminarGustan (idBebedor, idAlojamiento);
         log.info ("Eliminando gustan: " + resp + " tuplas eliminadas");
         return resp;
 	}
@@ -640,32 +640,32 @@ public class Alohandes
 	 *****************************************************************/
 
 	/**
-	 * Adiciona de manera persistente el hecho que una bebida es servida por un bar
+	 * Adiciona de manera persistente el hecho que una Alojamiento es servida por un bar
 	 * Adiciona entradas al log de la aplicación
 	 * @param idBar - El identificador del bar
-	 * @param idBebida - El identificador de la bebida
-	 * @param horario - El horario en el que se sirve la bebida (DIURNO, NOCTURNO, TODOS)
+	 * @param idAlojamiento - El identificador de la Alojamiento
+	 * @param horario - El horario en el que se sirve la Alojamiento (DIURNO, NOCTURNO, TODOS)
 	 * @return Un objeto Sirven con los valores dados
 	 */
-	public Sirven adicionarSirven (long idBar, long idBebida, String horario)
+	public Sirven adicionarSirven (long idBar, long idAlojamiento, String horario)
 	{
-        log.info ("Adicionando sirven [" + idBar + ", " + idBebida + "]");
-        Sirven resp = pp.adicionarSirven (idBar, idBebida, horario);
+        log.info ("Adicionando sirven [" + idBar + ", " + idAlojamiento + "]");
+        Sirven resp = pp.adicionarSirven (idBar, idAlojamiento, horario);
         log.info ("Adicionando sirven: " + resp + " tuplas insertadas");
         return resp;
 	}
 	
 	/**
-	 * Elimina de manera persistente el hecho que una bebida es servida por un bar
+	 * Elimina de manera persistente el hecho que una Alojamiento es servida por un bar
 	 * Adiciona entradas al log de la aplicación
 	 * @param idBar - El identificador del bar
-	 * @param idBebida - El identificador de la bebida
+	 * @param idAlojamiento - El identificador de la Alojamiento
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarSirven (long idBar, long idBebida)
+	public long eliminarSirven (long idBar, long idAlojamiento)
 	{
         log.info ("Eliminando sirven");
-        long resp = pp.eliminarSirven (idBar, idBebida);
+        long resp = pp.eliminarSirven (idBar, idAlojamiento);
         log.info ("Eliminando sirven: " + resp + "tuplas eliminadas");
         return resp;
 	}
@@ -710,7 +710,7 @@ public class Alohandes
 	 * @param idBebedor - El identificador del bebedor
 	 * @param idBar - El identificador del bar
 	 * @param fecha - La fecha en la que se realizó la visita
-	 * @param horario - El horario en el que se sirve la bebida (DIURNO, NOCTURNO, TODOS)
+	 * @param horario - El horario en el que se sirve la Alojamiento (DIURNO, NOCTURNO, TODOS)
 	 * @return Un objeto Visitan con los valores dados
 	 */
 	public Visitan adicionarVisitan (long idBebedor, long idBar, Timestamp fecha, String horario)
@@ -772,7 +772,7 @@ public class Alohandes
 
 	/**
 	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
-	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
+	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, Alojamiento,
 	 * Servicio, BEBEDOR y BAR, respectivamente
 	 */
 	public long [] limpiarAlohandes ()
