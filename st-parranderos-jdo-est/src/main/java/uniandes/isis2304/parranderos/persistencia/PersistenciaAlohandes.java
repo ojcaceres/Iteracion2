@@ -116,22 +116,7 @@ public class PersistenciaAlohandes
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
 	 */
-	private SQLBebedor sqlBebedor;
-	
-	/**
-	 * Atributo para el acceso a la tabla GUSTAN de la base de datos
-	 */
-	private SQLGustan sqlGustan;
-	
-	/**
-	 * Atributo para el acceso a la tabla SIRVEN de la base de datos
-	 */
-	private SQLSirven sqlSirven;
-	
-	/**
-	 * Atributo para el acceso a la tabla VISITAN de la base de datos
-	 */
-	private SQLVisitan sqlVisitan;
+
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
