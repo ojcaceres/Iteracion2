@@ -1,7 +1,8 @@
 
 	package uniandes.isis2304.parranderos.persistencia;
 
-	import java.util.List;
+	import java.util.Date;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 	import javax.jdo.Query;
@@ -43,10 +44,10 @@ import uniandes.isis2304.parranderos.negocio.Cliente;
 		 * @param sedes - El número de sedes del bar
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarCliente (PersistenceManager pm, long idCliente, String Nombre, String ciudad, String presupuesto, int sedes) 
+		public long adicionarCliente (PersistenceManager pm, long documento, String Nombre, String ciudad, String contrasena, String email,  long telefono, String genero, String vinculacion, Date fechaNacimiento) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCliente () + "(id, Nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-	        q.setParameters(idCliente, Nombre, ciudad, presupuesto, sedes);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaCliente () + "(documento, Nombre, ciudad, contrasena, email, telefono, genero, vinculacion, fechaNacimiento) values (?, ?, ?, ?, ?)");
+	        q.setParameters(documento, Nombre, ciudad, contrasena, email, telefono, genero, vinculacion, fechaNacimiento);
 	        return (long) q.executeUnique();
 		}
 

@@ -39,10 +39,10 @@ public class SQLAlojamiento {
 	 * @param sedes - El número de sedes del bar
 	 * @return El número de tuplas insertadas
 	 */
-	public long adicionarAlojamiento (PersistenceManager pm, long idAlojamiento, String nombre, String ciudad, String presupuesto, int sedes) 
+	public long adicionarAlojamiento (PersistenceManager pm, long idAlojamiento, String nombre, String ubicacion, String tipooferta, String tipo) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAlojamiento () + "(id, nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-        q.setParameters(idAlojamiento, nombre, ciudad, presupuesto, sedes);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAlojamiento () + "(id, nombre, ubicacion, tipooferta	, tipo) values (?, ?, ?, ?, ?)");
+        q.setParameters(idAlojamiento, nombre, ubicacion, tipooferta, tipo);
         return (long) q.executeUnique();
 	}
 

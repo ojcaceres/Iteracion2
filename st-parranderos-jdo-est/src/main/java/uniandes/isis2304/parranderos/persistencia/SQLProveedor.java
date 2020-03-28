@@ -43,10 +43,10 @@ import uniandes.isis2304.parranderos.negocio.Proveedor;
 		 * @param sedes - El número de sedes del bar
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarProveedor (PersistenceManager pm, long idProveedor, String tipo, String ciudad, String presupuesto, int sedes) 
+		public long adicionarProveedor (PersistenceManager pm, long idProveedor, String tipo) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaProveedor () + "(id, tipo, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-	        q.setParameters(idProveedor, tipo, ciudad, presupuesto, sedes);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaProveedor () + "(id, tipo) values (?, ?)");
+	        q.setParameters(idProveedor, tipo);
 	        return (long) q.executeUnique();
 		}
 

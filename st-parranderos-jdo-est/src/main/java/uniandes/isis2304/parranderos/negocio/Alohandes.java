@@ -175,10 +175,10 @@ public class Alohandes
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Bebida adicionarProveedor (String nombre, long idServicio, int gradoAlcohol)
+	public Bebida adicionarProveedor (String nombre, String ubicacion, long tipooferta, long tipo)
 	{
 		log.info ("Adicionando bebida " + nombre);
-		Bebida bebida = pp.adicionarBebida (nombre, idServicio, gradoAlcohol);
+		Bebida bebida = pp.adicionarBebida (nombre, ubicacion, tipooferta, tipo);
         log.info ("Adicionando bebida: " + bebida);
         return bebida;
 	}
