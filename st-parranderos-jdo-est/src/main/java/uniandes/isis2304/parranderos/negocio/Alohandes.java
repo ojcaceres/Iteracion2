@@ -16,6 +16,7 @@
 package uniandes.isis2304.parranderos.negocio;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -747,6 +748,24 @@ public class Alohandes
         List<Visitan> visitan = pp.darVisitan ();	
         log.info ("Listando Visitan: Listo!");
         return visitan;
+	}
+	
+	public   Reserva req4InsertarReserva(long id, long idCliente, long idAlojamiento, int descuento, int cantpagos, Date fechaConfirmacion, 
+			Date fechaCheckIn, Date fechaCheckOut, double precioTotal )
+	{
+		 log.info ("Adicionando reserva:" + id );
+	        Sirven resp = pp.adicionarReserva (id,  idCliente, idAlojamiento, descuento, cantpagos, fechaConfirmacion, 
+	    			fechaCheckIn, fechaCheckOut, precioTotal );
+	        log.info ("Adicionando sirven: " + resp + " tuplas insertadas");
+	        return resp;
+	}
+	
+	public long req5EliminarReserva (long id)
+	{
+        log.info ("Eliminando reserva por id: " + id);
+        long resp = pp.eliminarReserva(id);
+        log.info ("Eliminando reserva por Id: " + resp + " tuplas eliminadas");
+        return resp;
 	}
 
 	/**

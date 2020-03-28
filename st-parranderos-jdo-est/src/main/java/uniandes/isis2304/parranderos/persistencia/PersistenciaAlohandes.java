@@ -18,6 +18,7 @@ package uniandes.isis2304.parranderos.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -1337,6 +1338,8 @@ public class PersistenciaAlohandes
         }
 	}
  
+	
+
 	/**
 	 * Método que elimina, de manera transaccional, una tupla en la tabla SIRVEN, dados los identificadores de bar y bebida
 	 * @param idBar - El identificador del bar
@@ -1587,6 +1590,67 @@ public class PersistenciaAlohandes
             pm.close();
         }
 		
+	}
+
+	public Sirven adicionarReserva(long id, long idCliente, long idAlojamiento, int descuento, int cantpagos,
+			Date fechaConfirmacion, Date fechaCheckIn, Date fechaCheckOut, double precioTotal) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlReserva.adicionarReserva (pmf.getPersistenceManager(), id,  idCliente, idAlojamiento, descuento, cantpagos, fechaConfirmacion, 
+	    			fechaCheckIn, fechaCheckOut, precioTotal);
+    		tx.commit();
+
+            log.trace ("Inserción de gustan: [" + id + tuplasInsertadas + " tuplas insertadas");
+
+            return new Sirven (idBar, idBebida, horario);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
+	public long eliminarReserva(long id) 
+	{
+			PersistenceManager pm = pmf.getPersistenceManager();
+	        Transaction tx=pm.currentTransaction();
+	        try
+	        {
+	            tx.begin();
+	            long resp = sqlReserva.eliminarReservaPorId (pm, id);
+	            tx.commit();
+
+	            return resp;
+	        }
+	        catch (Exception e)
+	        {
+//	        	e.printStackTrace();
+	        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+	            return -1;
+	        }
+	        finally
+	        {
+	            if (tx.isActive())
+	            {
+	                tx.rollback();
+	            }
+	            pm.close();
+	        }
+		
+
 	}
 	
 

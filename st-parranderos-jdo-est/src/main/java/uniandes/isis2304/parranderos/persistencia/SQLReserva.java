@@ -1,7 +1,8 @@
 
 	package uniandes.isis2304.parranderos.persistencia;
 
-	import java.util.List;
+	import java.util.Date;
+import java.util.List;
 
 import javax.jdo.PersistenceManager;
 	import javax.jdo.Query;
@@ -33,22 +34,7 @@ import uniandes.isis2304.parranderos.negocio.Reserva;
 			this.pp = pp;
 		}
 		
-		/**
-		 * Crea y ejecuta la sentencia SQL para adicionar un BAR a la base de datos de Parranderos
-		 * @param pm - El manejador de persistencia
-		 * @param idReserva - El identificador del bar
-		 * @param fechaCheckIn - El fechaCheckIn del bar
-		 * @param ciudad - La ciudad del bar
-		 * @param presupuesto - El presupuesto del bar (ALTO, MEDIO, BAJO)
-		 * @param sedes - El número de sedes del bar
-		 * @return El número de tuplas insertadas
-		 */
-		public long adicionarReserva (PersistenceManager pm, long idReserva, String fechaCheckIn, String ciudad, String presupuesto, int sedes) 
-		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva () + "(id, fechaCheckIn, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-	        q.setParameters(idReserva, fechaCheckIn, ciudad, presupuesto, sedes);
-	        return (long) q.executeUnique();
-		}
+
 
 		/**
 		 * Crea y ejecuta la sentencia SQL para eliminar BARES de la base de datos de Parranderos, por su fechaCheckIn
@@ -98,7 +84,7 @@ import uniandes.isis2304.parranderos.negocio.Reserva;
 		 * @param fechaCheckInReserva - El fechaCheckIn de bar buscado
 		 * @return Una lista de objetos BAR que tienen el fechaCheckIn dado
 		 */
-		public List<Reserva> darReservaesPorFechaCheckIn (PersistenceManager pm, String fechaCheckInReserva) 
+		public List<Reserva> darReservasPorFechaCheckIn (PersistenceManager pm, String fechaCheckInReserva) 
 		{
 			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva () + " WHERE fechaCheckIn = ?");
 			q.setResultClass(Reserva.class);
@@ -112,11 +98,33 @@ import uniandes.isis2304.parranderos.negocio.Reserva;
 		 * @param pm - El manejador de persistencia
 		 * @return Una lista de objetos BAR
 		 */
-		public List<Reserva> darReservaes (PersistenceManager pm)
+		public List<Reserva> darReservas (PersistenceManager pm)
 		{
 			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaReserva ());
 			q.setResultClass(Reserva.class);
 			return (List<Reserva>) q.executeList();
+		}
+
+		/**
+		 * Crea y ejecuta la sentencia SQL para adicionar un BAR a la base de datos de Parranderos
+		 * @param pm - El manejador de persistencia
+		 * @param idReserva - El identificador del bar
+		 * @param fechaCheckIn - El fechaCheckIn del bar
+		 * @param ciudad - La ciudad del bar
+		 * @param presupuesto - El presupuesto del bar (ALTO, MEDIO, BAJO)
+		 * @param sedes - El número de sedes del bar
+		 * @return El número de tuplas insertadas
+		 */
+
+		
+		public long adicionarReserva(PersistenceManager pm, long id, long idCliente, long idAlojamiento,
+				int descuento, int cantpagos, Date fechaConfirmacion, Date fechaCheckIn, Date fechaCheckOut,
+				double precioTotal) {
+			Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva () + "(id,  idCliente, idAlojamiento, descuento, cantpagos, fechaConfirmacion, fechaCheckIn, fechaCheckOut, precioTotal) values (?, ?, ?, ?, ?)");
+	        q.setParameters(id,  idCliente, idAlojamiento, descuento, cantpagos, fechaConfirmacion, 
+	    			fechaCheckIn, fechaCheckOut, precioTotal);
+	        return (long) q.executeUnique();
+			
 		}
 
 
