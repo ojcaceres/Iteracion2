@@ -20,10 +20,10 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-import uniandes.isis2304.parranderos.negocio.Bar;
+import uniandes.isis2304.parranderos.negocio.AptoSemestre;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto BAR de Parranderos
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto AptoSemestre de Parranderos
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Germán Bravo
@@ -60,102 +60,58 @@ class SQLAptoSemestre
 		this.pp = pp;
 	}
 	
-	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar un BAR a la base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param idBar - El identificador del bar
-	 * @param nombre - El nombre del bar
-	 * @param ciudad - La ciudad del bar
-	 * @param presupuesto - El presupuesto del bar (ALTO, MEDIO, BAJO)
-	 * @param sedes - El número de sedes del bar
-	 * @return El número de tuplas insertadas
-	 */
-	public long adicionarBar (PersistenceManager pm, long idBar, String nombre, String ciudad, String presupuesto, int sedes) 
+	
+	public long adicionarAptoSemestre (PersistenceManager pm, long id, Integer precioMes, Boolean amoblado, Integer habitaciones, String tipoOferta) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaBar () + "(id, nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-        q.setParameters(idBar, nombre, ciudad, presupuesto, sedes);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAptoSemestre () + "(id, nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
+        q.setParameters(id, precioMes, amoblado, habitaciones, tipoOferta);
+        return (long) q.executeUnique();
+	}
+
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para eliminar UN AptoSemestre de la base de datos de Parranderos, por su identificador
+	
+	 */
+	public long eliminarAptoSemestrePorId (PersistenceManager pm, long id)
+	{
+        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaAptoSemestre () + " WHERE id = ?");
+        q.setParameters(id);
         return (long) q.executeUnique();
 	}
 
 	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar BARES de la base de datos de Parranderos, por su nombre
-	 * @param pm - El manejador de persistencia
-	 * @param nombreBar - El nombre del bar
-	 * @return EL número de tuplas eliminadas
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN AptoSemestre de la 
+	
 	 */
-	public long eliminarBaresPorNombre (PersistenceManager pm, String nombreBar)
+	public AptoSemestre darAptoSemestrePorId (PersistenceManager pm, long id) 
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-        q.setParameters(nombreBar);
-        return (long) q.executeUnique();
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAptoSemestre () + " WHERE id = ?");
+		q.setResultClass(AptoSemestre.class);
+		q.setParameters(id);
+		return (AptoSemestre) q.executeUnique();
+	}
+
+	
+
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS AptoSemestreES de la 
+	
+	 */
+	public List<AptoSemestre> darAptoSemestres (PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaAptoSemestre ());
+		q.setResultClass(AptoSemestre.class);
+		return (List<AptoSemestre>) q.executeList();
 	}
 
 	/**
-	 * Crea y ejecuta la sentencia SQL para eliminar UN BAR de la base de datos de Parranderos, por su identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBar - El identificador del bar
-	 * @return EL número de tuplas eliminadas
+	 * Crea y ejecuta la sentencia SQL para aumentar en uno el número de sedes de los AptoSemestrees de la 
+	
 	 */
-	public long eliminarBarPorId (PersistenceManager pm, long idBar)
+	public long aumentarSedesAptoSemestresCiudad (PersistenceManager pm, String ciudad)
 	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaBar () + " WHERE id = ?");
-        q.setParameters(idBar);
-        return (long) q.executeUnique();
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de UN BAR de la 
-	 * base de datos de Parranderos, por su identificador
-	 * @param pm - El manejador de persistencia
-	 * @param idBar - El identificador del bar
-	 * @return El objeto BAR que tiene el identificador dado
-	 */
-	public Bar darBarPorId (PersistenceManager pm, long idBar) 
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE id = ?");
-		q.setResultClass(Bar.class);
-		q.setParameters(idBar);
-		return (Bar) q.executeUnique();
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS BARES de la 
-	 * base de datos de Parranderos, por su nombre
-	 * @param pm - El manejador de persistencia
-	 * @param nombreBar - El nombre de bar buscado
-	 * @return Una lista de objetos BAR que tienen el nombre dado
-	 */
-	public List<Bar> darBaresPorNombre (PersistenceManager pm, String nombreBar) 
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar () + " WHERE nombre = ?");
-		q.setResultClass(Bar.class);
-		q.setParameters(nombreBar);
-		return (List<Bar>) q.executeList();
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS BARES de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos BAR
-	 */
-	public List<Bar> darBares (PersistenceManager pm)
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaBar ());
-		q.setResultClass(Bar.class);
-		return (List<Bar>) q.executeList();
-	}
-
-	/**
-	 * Crea y ejecuta la sentencia SQL para aumentar en uno el número de sedes de los bares de la 
-	 * base de datos de Parranderos
-	 * @param pm - El manejador de persistencia
-	 * @param ciudad - La ciudad a la cual se le quiere realizar el proceso
-	 * @return El número de tuplas modificadas
-	 */
-	public long aumentarSedesBaresCiudad (PersistenceManager pm, String ciudad)
-	{
-        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaBar () + " SET cantsedes = cantsedes + 1 WHERE ciudad = ?");
+        Query q = pm.newQuery(SQL, "UPDATE " + pp.darTablaAptoSemestre () + " SET cantsedes = cantsedes + 1 WHERE ciudad = ?");
         q.setParameters(ciudad);
         return (long) q.executeUnique();
 	}
