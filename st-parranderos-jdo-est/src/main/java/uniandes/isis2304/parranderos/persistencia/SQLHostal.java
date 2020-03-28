@@ -43,10 +43,10 @@ import uniandes.isis2304.parranderos.negocio.Hostal;
 		 * @param sedes - El número de sedes del bar
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarHostal (PersistenceManager pm, long idHostal, String nombre, String ciudad, String presupuesto, int sedes) 
+		public long adicionarHostal (PersistenceManager pm, long idHostal, String nombre, String horario,String ubicacion, String email, long idProveedor, long telefono) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHostal () + "(id, nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-	        q.setParameters(idHostal, nombre, ciudad, presupuesto, sedes);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHostal () + "(id, nombre, horario, ubicacion, email, idProveedor, telefono) values (?, ?, ?, ?, ?,?,?)");
+	        q.setParameters(idHostal, nombre, horario, ubicacion, email, idProveedor, telefono);
 	        return (long) q.executeUnique();
 		}
 
@@ -54,7 +54,7 @@ import uniandes.isis2304.parranderos.negocio.Hostal;
 		 * Crea y ejecuta la sentencia SQL para eliminar BARES de la base de datos de Parranderos, por su nombre
 		 * @param pm - El manejador de persistencia
 		 * @param nombreHostal - El nombre del bar
-		 * @return EL número de tuplas eliminadas
+		 * @return EL número de tuplas el  iminadas
 		 */
 		public long eliminarHostalesPorNombre (PersistenceManager pm, String nombreHostal)
 		{

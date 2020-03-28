@@ -43,10 +43,10 @@ import uniandes.isis2304.parranderos.negocio.Hotel;
 		 * @param sedes - El número de sedes del bar
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarHotel (PersistenceManager pm, long idHotel, String nombre, String ciudad, String presupuesto, int sedes) 
+		public long adicionarHotel (PersistenceManager pm, long idHotel, String nombre, String ubicacion, String email, long idProveedor, long telefono) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHotel () + "(id, nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-	        q.setParameters(idHotel, nombre, ciudad, presupuesto, sedes);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHotel () + "(id, nombre, ubicacion, email, idProveedor, telefono) values (?, ?, ?, ?, ?, ?)");
+	        q.setParameters(idHotel, nombre, ubicacion, email, idProveedor, telefono);
 	        return (long) q.executeUnique();
 		}
 
