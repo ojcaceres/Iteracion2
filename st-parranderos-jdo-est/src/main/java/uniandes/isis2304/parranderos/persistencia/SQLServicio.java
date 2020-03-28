@@ -43,10 +43,10 @@ import uniandes.isis2304.parranderos.negocio.Servicio;
 		 * @param sedes - El número de sedes del bar
 		 * @return El número de tuplas insertadas
 		 */
-		public long adicionarServicio (PersistenceManager pm, long idServicio, String Nombre, String ciudad, String presupuesto, int sedes) 
+		public long adicionarServicio (PersistenceManager pm, long idServicio, String Nombre, long idAlojamiento) 
 		{
-	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServicio () + "(id, Nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
-	        q.setParameters(idServicio, Nombre, ciudad, presupuesto, sedes);
+	        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaServicio () + "(id, Nombre, idAlojamiento) values (?, ?, ?)");
+	        q.setParameters(idServicio, Nombre, idAlojamiento);
 	        return (long) q.executeUnique();
 		}
 
@@ -98,7 +98,7 @@ import uniandes.isis2304.parranderos.negocio.Servicio;
 		 * @param NombreServicio - El Nombre de bar buscado
 		 * @return Una lista de objetos BAR que tienen el Nombre dado
 		 */
-		public List<Servicio> darServicioesPorNombre (PersistenceManager pm, String NombreServicio) 
+		public List<Servicio> darServiciosPorNombre (PersistenceManager pm, String NombreServicio) 
 		{
 			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio () + " WHERE Nombre = ?");
 			q.setResultClass(Servicio.class);
@@ -112,7 +112,7 @@ import uniandes.isis2304.parranderos.negocio.Servicio;
 		 * @param pm - El manejador de persistencia
 		 * @return Una lista de objetos BAR
 		 */
-		public List<Servicio> darServicioes (PersistenceManager pm)
+		public List<Servicio> darServicios (PersistenceManager pm)
 		{
 			Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaServicio ());
 			q.setResultClass(Servicio.class);
@@ -125,4 +125,4 @@ import uniandes.isis2304.parranderos.negocio.Servicio;
 	}
 
 
-}
+

@@ -36,7 +36,7 @@ import uniandes.isis2304.parranderos.negocio.Bebedor;
 import uniandes.isis2304.parranderos.negocio.Bebida;
 import uniandes.isis2304.parranderos.negocio.Gustan;
 import uniandes.isis2304.parranderos.negocio.Sirven;
-import uniandes.isis2304.parranderos.negocio.TipoBebida;
+import uniandes.isis2304.parranderos.negocio.Servicio;
 import uniandes.isis2304.parranderos.negocio.Visitan;
 
 /**
@@ -44,7 +44,7 @@ import uniandes.isis2304.parranderos.negocio.Visitan;
  * Traduce la información entre objetos Java y tuplas de la base de datos, en ambos sentidos
  * Sigue un patrón SINGLETON (Sólo puede haber UN objeto de esta clase) para comunicarse de manera correcta
  * con la base de datos
- * Se apoya en las clases SQLBar, SQLBebedor, SQLBebida, SQLGustan, SQLSirven, SQLTipoBebida y SQLVisitan, que son 
+ * Se apoya en las clases SQLBar, SQLBebedor, SQLBebida, SQLGustan, SQLSirven, SQLServicio y SQLVisitan, que son 
  * las que realizan el acceso a la base de datos
  * 
  * @author Germán Bravo
@@ -79,7 +79,7 @@ public class PersistenciaAlohandes
 	
 	/**
 	 * Arreglo de cadenas con los nombres de las tablas de la base de datos, en su orden:
-	 * Secuenciador, tipoBebida, bebida, bar, bebedor, gustan, sirven y visitan
+	 * Secuenciador, Servicio, bebida, bar, bebedor, gustan, sirven y visitan
 	 */
 	private List <String> tablas;
 	
@@ -89,7 +89,7 @@ public class PersistenciaAlohandes
 	private SQLUtil sqlUtil;
 	
 	/**
-	 * Atributo para el acceso a la tabla TIPOBEBIDA de la base de datos
+	 * Atributo para el acceso a la tabla Servicio de la base de datos
 	 */
 	private SQLAptoSemestre sqlAptoSemestre;
 	
@@ -148,7 +148,7 @@ public class PersistenciaAlohandes
 		// Define los nombres por defecto de las tablas de la base de datos
 		tablas = new LinkedList<String> ();
 		tablas.add ("Parranderos_sequence");
-		tablas.add ("TIPOBEBIDA");
+		tablas.add ("Servicio");
 		tablas.add ("BEBIDA");
 		tablas.add ("BAR");
 		tablas.add ("BEBEDOR");
@@ -229,7 +229,7 @@ public class PersistenciaAlohandes
 	 */
 	private void crearClasesSQL ()
 	{
-		sqlTipoBebida = new SQLTipoBebida(this);
+		sqlServicio = new SQLServicio(this);
 		sqlBebida = new SQLBebida(this);
 		sqlBar = new SQLBar(this);
 		sqlBebedor = new SQLBebedor(this);
@@ -248,9 +248,9 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de TipoBebida de parranderos
+	 * @return La cadena de caracteres con el nombre de la tabla de Servicio de parranderos
 	 */
-	public String darTablaTipoBebida ()
+	public String darTablaServicio ()
 	{
 		return tablas.get (1);
 	}
@@ -336,25 +336,25 @@ public class PersistenciaAlohandes
 	 *****************************************************************/
 
 	/**
-	 * Método que inserta, de manera transaccional, una tupla en la tabla TipoBebida
+	 * Método que inserta, de manera transaccional, una tupla en la tabla Servicio
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre del tipo de bebida
-	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
+	 * @return El objeto Servicio adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoBebida adicionarTipoBebida(String nombre)
+	public Servicio adicionarServicio(String nombre, long idAlojamiento)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long idTipoBebida = nextval ();
-            long tuplasInsertadas = sqlTipoBebida.adicionarTipoBebida(pm, idTipoBebida, nombre);
+            long idServicio = nextval ();
+            long tuplasInsertadas = sqlServicio.adicionarServicio(pm, idServicio, nombre, idAlojamiento);
             tx.commit();
             
             log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new TipoBebida (idTipoBebida, nombre);
+            return new Servicio (idServicio, nombre);
         }
         catch (Exception e)
         {
@@ -373,19 +373,19 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el nombre del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Servicio, dado el nombre del tipo de bebida
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre del tipo de bebida
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
-	public long eliminarTipoBebidaPorNombre (String nombre) 
+	public long eliminarServicioPorNombre (String nombre) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long resp = sqlTipoBebida.eliminarTipoBebidaPorNombre(pm, nombre);
+            long resp = sqlServicio.eliminarServicioPorNombre(pm, nombre);
             tx.commit();
             return resp;
         }
@@ -406,19 +406,19 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * Método que elimina, de manera transaccional, una tupla en la tabla TipoBebida, dado el identificador del tipo de bebida
+	 * Método que elimina, de manera transaccional, una tupla en la tabla Servicio, dado el identificador del tipo de bebida
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El identificador del tipo de bebida
+	 * @param idServicio - El identificador del tipo de bebida
 	 * @return El número de tuplas eliminadas. -1 si ocurre alguna Excepción
 	 */
-	public long eliminarTipoBebidaPorId (long idTipoBebida) 
+	public long eliminarServicioPorId (long idServicio) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
-            long resp = sqlTipoBebida.eliminarTipoBebidaPorId(pm, idTipoBebida);
+            long resp = sqlServicio.eliminarServicioPorId(pm, idServicio);
             tx.commit();
             return resp;
         }
@@ -439,32 +439,32 @@ public class PersistenciaAlohandes
 	}
 
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida
-	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 * Método que consulta todas las tuplas en la tabla Servicio
+	 * @return La lista de objetos Servicio, construidos con base en las tuplas de la tabla Servicio
 	 */
-	public List<TipoBebida> darTiposBebida ()
+	public List<Servicio> darServicios ()
 	{
-		return sqlTipoBebida.darTiposBebida (pmf.getPersistenceManager());
+		return sqlServicio.darServicios (pmf.getPersistenceManager());
 	}
  
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida que tienen el nombre dado
+	 * Método que consulta todas las tuplas en la tabla Servicio que tienen el nombre dado
 	 * @param nombre - El nombre del tipo de bebida
-	 * @return La lista de objetos TipoBebida, construidos con base en las tuplas de la tabla TIPOBEBIDA
+	 * @return La lista de objetos Servicio, construidos con base en las tuplas de la tabla Servicio
 	 */
-	public List<TipoBebida> darTipoBebidaPorNombre (String nombre)
+	public List<Servicio> darServicioPorNombre (String nombre)
 	{
-		return sqlTipoBebida.darTiposBebidaPorNombre (pmf.getPersistenceManager(), nombre);
+		return sqlServicio.darServiciosPorNombre (pmf.getPersistenceManager(), nombre);
 	}
  
 	/**
-	 * Método que consulta todas las tuplas en la tabla TipoBebida con un identificador dado
-	 * @param idTipoBebida - El identificador del tipo de bebida
-	 * @return El objeto TipoBebida, construido con base en las tuplas de la tabla TIPOBEBIDA con el identificador dado
+	 * Método que consulta todas las tuplas en la tabla Servicio con un identificador dado
+	 * @param idServicio - El identificador del tipo de bebida
+	 * @return El objeto Servicio, construido con base en las tuplas de la tabla Servicio con el identificador dado
 	 */
-	public TipoBebida darTipoBebidaPorId (long idTipoBebida)
+	public Servicio darServicioPorId (long idServicio)
 	{
-		return sqlTipoBebida.darTipoBebidaPorId (pmf.getPersistenceManager(), idTipoBebida);
+		return sqlServicio.darServicioPorId (pmf.getPersistenceManager(), idServicio);
 	}
  
 	/* ****************************************************************
@@ -475,11 +475,11 @@ public class PersistenciaAlohandes
 	 * Método que inserta, de manera transaccional, una tupla en la tabla Bebida
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre de la bebida
-	 * @param idTipoBebida - El identificador del tipo de bebida (Debe existir en la tabla TipoBebida)
+	 * @param idServicio - El identificador del tipo de bebida (Debe existir en la tabla Servicio)
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Bebida adicionarBebida(String nombre, long idTipoBebida, int gradoAlcohol) 
+	public Bebida adicionarBebida(String nombre, long idServicio, int gradoAlcohol) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -487,11 +487,11 @@ public class PersistenciaAlohandes
         {
             tx.begin();            
             long idBebida = nextval ();
-            long tuplasInsertadas = sqlBebida.adicionarBebida(pm, idBebida, nombre, idTipoBebida, gradoAlcohol);
+            long tuplasInsertadas = sqlBebida.adicionarBebida(pm, idBebida, nombre, idServicio, gradoAlcohol);
             tx.commit();
             
             log.trace ("Inserción bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-            return new Bebida (idBebida,nombre, idTipoBebida, gradoAlcohol);
+            return new Bebida (idBebida,nombre, idServicio, gradoAlcohol);
         }
         catch (Exception e)
         {
@@ -760,7 +760,7 @@ public class PersistenciaAlohandes
 	 * Método que consulta TODA LA INFORMACIÓN DE UN BEBEDOR con el identificador dado. Incluye la información básica del bebedor,
 	 * las visitas realizadas y las bebidas que le gustan.
 	 * @param idBebedor - El identificador del bebedor
-	 * @return El objeto BEBEDOR, construido con base en las tuplas de la tablas BEBEDOR, VISITAN, BARES, GUSTAN, BEBIDAS y TIPOBEBIDA,
+	 * @return El objeto BEBEDOR, construido con base en las tuplas de la tablas BEBEDOR, VISITAN, BARES, GUSTAN, BEBIDAS y Servicio,
 	 * relacionadas con el identificador de bebedor dado
 	 */
 	public Bebedor darBebedorCompleto (long idBebedor) 
@@ -957,7 +957,7 @@ public class PersistenciaAlohandes
 	 * Método privado para generar las información completa de las bebidas que le gustan a un bebedor: 
 	 * La información básica de la bebida, especificando también el nombre de la bebida, en el formato esperado por los objetos BEBEDOR
 	 * @param tuplas - Una lista de arreglos de 5 objetos, con la información de la bebida y del tipo de bebida, en el siguiente orden:
-	 * 	 beb.id, beb.nombre, beb.idtipobebida, beb.gradoalcohol, tipobebida.nombre
+	 * 	 beb.id, beb.nombre, beb.idServicio, beb.gradoalcohol, Servicio.nombre
 	 * @return Una lista de arreglos de 2 objetos. El primero es un objeto BEBIDA, el segundo corresponde al nombre del tipo de bebida
 	 */
 	private List<Object []> armarGustanBebedor (List<Object []> tuplas)
@@ -967,12 +967,12 @@ public class PersistenciaAlohandes
 		{			
 			long idBebida = ((BigDecimal) tupla [0]).longValue ();
 			String nombreBebida = (String) tupla [1];
-			long idTipoBebida = ((BigDecimal) tupla [2]).longValue ();
+			long idServicio = ((BigDecimal) tupla [2]).longValue ();
 			int gradoAlcohol = ((BigDecimal) tupla [3]).intValue ();
 			String nombreTipo = (String) tupla [4];
 
 			Object [] gusta = new Object [2];
-			gusta [0] = new Bebida (idBebida, nombreBebida, idTipoBebida, gradoAlcohol);
+			gusta [0] = new Bebida (idBebida, nombreBebida, idServicio, gradoAlcohol);
 			gusta [1] = nombreTipo;	
 			
 			gustan.add(gusta);
@@ -1502,7 +1502,7 @@ public class PersistenciaAlohandes
 	 * Elimina todas las tuplas de todas las tablas de la base de datos de Parranderos
 	 * Crea y ejecuta las sentencias SQL para cada tabla de la base de datos - EL ORDEN ES IMPORTANTE 
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 * Servicio, BEBEDOR y BAR, respectivamente
 	 */
 	public long [] limpiarParranderos ()
 	{

@@ -76,91 +76,91 @@ public class Alohandes
 	}
 	
 	/* ****************************************************************
-	 * 			Métodos para manejar los TIPOS DE BEBIDA
+	 * 			Métodos para manejar los Servicios
 	 *****************************************************************/
 	/**
-	 * Adiciona de manera persistente un tipo de bebida 
+	 * Adiciona de manera persistente un Servicio 
 	 * Adiciona entradas al log de la aplicación
-	 * @param nombre - El nombre del tipo de bebida
-	 * @return El objeto TipoBebida adicionado. null si ocurre alguna Excepción
+	 * @param nombre - El nombre del Servicio
+	 * @return El objeto Servicio adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoBebida adicionarTipoBebida (String nombre)
+	public Servicio adicionarServicio (String nombre, long idAlojamiento)
 	{
-        log.info ("Adicionando Tipo de bebida: " + nombre);
-        TipoBebida tipoBebida = pp.adicionarTipoBebida (nombre);		
-        log.info ("Adicionando Tipo de bebida: " + tipoBebida);
-        return tipoBebida;
+        log.info ("Adicionando servicio: " + nombre + idAlojamiento);
+        Servicio Servicio = pp.adicionarServicio (nombre, idAlojamiento);		
+        log.info ("Adicionando servicio: " + Servicio);
+        return Servicio;
 	}
 	
 	/**
-	 * Elimina un tipo de bebida por su nombre
+	 * Elimina un Servicio por su nombre
 	 * Adiciona entradas al log de la aplicación
-	 * @param nombre - El nombre del tipo de bebida a eliminar
+	 * @param nombre - El nombre del Servicio a eliminar
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarTipoBebidaPorNombre (String nombre)
+	public long eliminarServicioPorNombre (String nombre)
 	{
-		log.info ("Eliminando Tipo de bebida por nombre: " + nombre);
-        long resp = pp.eliminarTipoBebidaPorNombre (nombre);		
-        log.info ("Eliminando Tipo de bebida por nombre: " + resp + " tuplas eliminadas");
+		log.info ("Eliminando Servicio por nombre: " + nombre);
+        long resp = pp.eliminarServicioPorNombre (nombre);		
+        log.info ("Eliminando Servicio por nombre: " + resp + " tuplas eliminadas");
         return resp;
 	}
 	
 	/**
-	 * Elimina un tipo de bebida por su identificador
+	 * Elimina un Servicio por su identificador
 	 * Adiciona entradas al log de la aplicación
-	 * @param idTipoBebida - El id del tipo de bebida a eliminar
+	 * @param idServicio - El id del Servicio a eliminar
 	 * @return El número de tuplas eliminadas
 	 */
-	public long eliminarTipoBebidaPorId (long idTipoBebida)
+	public long eliminarServicioPorId (long idServicio)
 	{
-		log.info ("Eliminando Tipo de bebida por id: " + idTipoBebida);
-        long resp = pp.eliminarTipoBebidaPorId (idTipoBebida);		
-        log.info ("Eliminando Tipo de bebida por id: " + resp + " tuplas eliminadas");
+		log.info ("Eliminando Servicio por id: " + idServicio);
+        long resp = pp.eliminarServicioPorId (idServicio);		
+        log.info ("Eliminando Servicio por id: " + resp + " tuplas eliminadas");
         return resp;
 	}
 	
 	/**
-	 * Encuentra todos los tipos de bebida en Alohandes
+	 * Encuentra todos los Servicios en Alohandes
 	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de objetos TipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
+	 * @return Una lista de objetos Servicio con todos los Servicios que conoce la aplicación, llenos con su información básica
 	 */
-	public List<TipoBebida> darTiposBebida ()
+	public List<Servicio> darServicios ()
 	{
-		log.info ("Consultando Tipos de bebida");
-        List<TipoBebida> tiposBebida = pp.darTiposBebida ();	
-        log.info ("Consultando Tipos de bebida: " + tiposBebida.size() + " existentes");
-        return tiposBebida;
+		log.info ("Consultando Servicios");
+        List<Servicio> Servicios = pp.darServicios ();	
+        log.info ("Consultando Servicios: " + Servicios.size() + " existentes");
+        return Servicios;
 	}
 
 	/**
-	 * Encuentra todos los tipos de bebida en Alohandes y los devuelve como una lista de VOTipoBebida
+	 * Encuentra todos los Servicios en Alohandes y los devuelve como una lista de VOServicio
 	 * Adiciona entradas al log de la aplicación
-	 * @return Una lista de objetos VOTipoBebida con todos los tipos de bebida que conoce la aplicación, llenos con su información básica
+	 * @return Una lista de objetos VOServicio con todos los Servicios que conoce la aplicación, llenos con su información básica
 	 */
-	public List<VOTipoBebida> darVOTiposBebida ()
+	public List<VOServicio> darVOServicios ()
 	{
-		log.info ("Generando los VO de Tipos de bebida");        
-        List<VOTipoBebida> voTipos = new LinkedList<VOTipoBebida> ();
-        for (TipoBebida tb : pp.darTiposBebida ())
+		log.info ("Generando los VO de los servicios");        
+        List<VOServicio> voTipos = new LinkedList<VOServicio> ();
+        for (Servicio tb : pp.darServicios ())
         {
         	voTipos.add (tb);
         }
-        log.info ("Generando los VO de Tipos de bebida: " + voTipos.size() + " existentes");
+        log.info ("Generando los VO de Servicios: " + voTipos.size() + " existentes");
         return voTipos;
 	}
 
 	/**
-	 * Encuentra el tipos de bebida en Alohandes con el nombre solicitado
+	 * Encuentra el Servicios en Alohandes con el nombre solicitado
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre de la bebida
-	 * @return Un objeto TipoBebida con el tipos de bebida de ese nombre que conoce la aplicación, 
+	 * @return Un objeto Servicio con el Servicios de ese nombre que conoce la aplicación, 
 	 * lleno con su información básica
 	 */
-	public TipoBebida darTipoBebidaPorNombre (String nombre)
+	public Servicio darServicioPorNombre (String nombre)
 	{
-		log.info ("Buscando Tipo de bebida por nombre: " + nombre);
-		List<TipoBebida> tb = pp.darTipoBebidaPorNombre (nombre);
+		log.info ("Buscando Servicio por nombre: " + nombre);
+		List<Servicio> tb = pp.darServicioPorNombre (nombre);
 		return !tb.isEmpty () ? tb.get (0) : null;
 	}
 
@@ -171,14 +171,14 @@ public class Alohandes
 	 * Adiciona de manera persistente una bebida 
 	 * Adiciona entradas al log de la aplicación
 	 * @param nombre - El nombre la bebida
-	 * @param idTipoBebida - El identificador del tipo de bebida de la bebida - Debe existir un TIPOBEBIDA con este identificador
+	 * @param idServicio - El identificador del Servicio de la bebida - Debe existir un Servicio con este identificador
 	 * @param gradoAlcohol - El grado de alcohol de la bebida (Mayor que 0)
 	 * @return El objeto Bebida adicionado. null si ocurre alguna Excepción
 	 */
-	public Bebida adicionarBebida (String nombre, long idTipoBebida, int gradoAlcohol)
+	public Bebida adicionarProveedor (String nombre, long idServicio, int gradoAlcohol)
 	{
 		log.info ("Adicionando bebida " + nombre);
-		Bebida bebida = pp.adicionarBebida (nombre, idTipoBebida, gradoAlcohol);
+		Bebida bebida = pp.adicionarBebida (nombre, idServicio, gradoAlcohol);
         log.info ("Adicionando bebida: " + bebida);
         return bebida;
 	}
@@ -225,7 +225,7 @@ public class Alohandes
 	}
 
 	/**
-	 * Encuentra todos los tipos de bebida en Alohandes y los devuelve como una lista de VOTipoBebida
+	 * Encuentra todos los Servicios en Alohandes y los devuelve como una lista de VOServicio
 	 * Adiciona entradas al log de la aplicación
 	 * @return Una lista de objetos VOBebida con todos las bebidas que conoce la aplicación, llenos con su información básica
 	 */
@@ -773,7 +773,7 @@ public class Alohandes
 	/**
 	 * Elimina todas las tuplas de todas las tablas de la base de datos de Alohandes
 	 * @return Un arreglo con 7 números que indican el número de tuplas borradas en las tablas GUSTAN, SIRVEN, VISITAN, BEBIDA,
-	 * TIPOBEBIDA, BEBEDOR y BAR, respectivamente
+	 * Servicio, BEBEDOR y BAR, respectivamente
 	 */
 	public long [] limpiarAlohandes ()
 	{
