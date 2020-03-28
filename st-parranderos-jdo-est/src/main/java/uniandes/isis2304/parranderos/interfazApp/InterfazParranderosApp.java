@@ -64,7 +64,7 @@ public class InterfazParranderosApp extends JFrame implements ActionListener
 	 * Logger para escribir la traza de la ejecución
 	 */
 	private static Logger log = Logger.getLogger(InterfazParranderosApp.class.getName());
-	
+	//
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
