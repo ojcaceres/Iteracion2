@@ -399,10 +399,10 @@ public class Alohandes
 	 * @param gradoAlcohol - El grado de alcohol de la AptoSemestre (Mayor que 0)
 	 * @return El objeto AptoSemestre adicionado. null si ocurre alguna Excepci√≥n
 	 */
-	public AptoSemestre adicionarAptoSemestre (long id, Integer precioMes, Boolean amoblado, Integer habitaciones, String tipoOferta, long idAlojamiento, long idProveedor)
+	public AptoSemestre adicionarAptoSemestre ( long id, Integer precioMes, Boolean amoblado, Integer habitaciones)
 	{
 		log.info ("Adicionando AptoSemestre " );
-		AptoSemestre AptoSemestre = pp.adicionarAptoSemestre (id, precioMes, amoblado, habitaciones, tipoOferta);
+		AptoSemestre AptoSemestre = pp.adicionarAptoSemestre (id, precioMes, amoblado, habitaciones);
 		log.info ("Adicionando AptoSemestre: " + AptoSemestre);
 		return AptoSemestre;
 	}

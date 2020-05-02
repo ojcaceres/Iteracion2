@@ -61,7 +61,7 @@ class SQLAptoSemestre
 	}
 	
 	
-	public long adicionarAptoSemestre (PersistenceManager pm, long id, Integer precioMes, Boolean amoblado, Integer habitaciones, String tipoOferta) 
+	public long adicionarAptoSemestre (PersistenceManager pm, long id, Integer precioMes, Boolean amoblado, Integer habitaciones) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAptoSemestre () + "(id, nombre, ciudad, presupuesto, cantsedes) values (?, ?, ?, ?, ?)");
         q.setParameters(id, precioMes, amoblado, habitaciones, tipoOferta);

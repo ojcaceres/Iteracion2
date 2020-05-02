@@ -483,14 +483,14 @@ public class InterfazAlohandesApp extends JFrame implements ActionListener
     	{
 			long idAlojamiento = Long.parseLong(JOptionPane.showInputDialog (this, "idAlojamiento", "Adicionar aptoSemestre", JOptionPane.QUESTION_MESSAGE));
 			long idProveedor = Long.parseLong(JOptionPane.showInputDialog (this, "idProveedor", "Adicionar aptoSemestre", JOptionPane.QUESTION_MESSAGE));
-			Integer precioMes = Integer.parseInt(JOptionPane.showInputDialog (this, "precio mes", "Adicionar cliente", JOptionPane.QUESTION_MESSAGE));
+			Integer precioMes = Integer.parseInt(JOptionPane.showInputDialog (this, "precio mes", "Adicionar AptoSemestre", JOptionPane.QUESTION_MESSAGE));
 			char amoblado = JOptionPane.showInputDialog (this,"es amoblado?", "Adicionar aptoSemestre", JOptionPane.QUESTION_MESSAGE).charAt(0);
 			Integer habitaciones = Integer.parseInt(JOptionPane.showInputDialog (this, "cantidad habitaciones", "Adicionar aptoSemestre", JOptionPane.QUESTION_MESSAGE));
 
 
     		if (idAlojamiento > 0 & amoblado==('1')|amoblado==('0')&idProveedor > 0 )
     		{
-        		VOAptoSemestre tb = (VOAptoSemestre) alohandes.adicionarAptoSemestre(idAlojamiento, idProveedor, precioMes, amoblado, habitaciones,telefono);
+        		VOAptoSemestre tb = (VOAptoSemestre) alohandes.adicionarAptoSemestre(idAlojamiento, idProveedor, precioMes, amoblado, habitaciones);
         		if (tb == null)
         		{
         			throw new Exception ("No se pudo crear un aptoSemestre con id: " + idAlojamiento);
