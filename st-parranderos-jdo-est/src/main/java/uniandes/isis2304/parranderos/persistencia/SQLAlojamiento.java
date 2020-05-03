@@ -31,10 +31,10 @@ public class SQLAlojamiento {
 	}
 	
 	
-	public long adicionarAlojamiento (PersistenceManager pm, long idAlojamiento, String nombre, String ubicacion, String tipooferta, String tipo) 
+	public long adicionarAlojamiento (PersistenceManager pm, long idAlojamiento, String nombre, String ubicacion, String tipooferta) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAlojamiento () + "(id, nombre, ubicacion, tipooferta	, tipo) values (?, ?, ?, ?, ?)");
-        q.setParameters(idAlojamiento, nombre, ubicacion, tipooferta, tipo);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaAlojamiento () + "(id, nombre, ubicacion, tipoOferta	) values (?, ?, ?, ?, ?)");
+        q.setParameters(idAlojamiento, nombre, ubicacion, tipooferta);
         return (long) q.executeUnique();
 	}
 
