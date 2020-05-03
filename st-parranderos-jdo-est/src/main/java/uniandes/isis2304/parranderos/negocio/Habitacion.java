@@ -122,4 +122,16 @@ public class Habitacion  extends Alojamiento implements VOHabitacion
 	{
 		this.precioNoche = precioNoche;
 	}
+
+	@Override
+	public String getTipo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUbicacion() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

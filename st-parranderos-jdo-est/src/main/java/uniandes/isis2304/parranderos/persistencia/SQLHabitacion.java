@@ -31,20 +31,15 @@ public class SQLHabitacion {
 	}
 	
 	
-	public long adicionarHabitacion (PersistenceManager pm, long idHabitacion, String horario, int precioNoche, int capacidad, String tipoOferta) 
+	public long adicionarHabitacion (PersistenceManager pm, String id, String horario, int precioNoche, int capacidad, String tipoOferta) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacion () + "(id, horario, precioNoche, capacidad, tipoOferta) values (?, ?, ?, ?, ?)");
-        q.setParameters(idHabitacion,  horario, precioNoche, capacidad, tipoOferta);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaHabitacion () + "(id,  precioNoche, capacidad, tipoOferta) values (?,  ?, ?, ?)");
+        q.setParameters(id,  precioNoche,  capacidad, tipoOferta);
         return (long) q.executeUnique();
 	}
 
 	
-	public long eliminarHabitacionsPorNombre (PersistenceManager pm, String nombreHabitacion)
-	{
-        Query q = pm.newQuery(SQL, "DELETE FROM " + pp.darTablaHabitacion () + " WHERE nombre = ?");
-        q.setParameters(nombreHabitacion);
-        return (long) q.executeUnique();
-	}
+	
 
 	
 	public long eliminarHabitacionPorId (PersistenceManager pm, long idHabitacion)
@@ -64,13 +59,7 @@ public class SQLHabitacion {
 	}
 
 
-	public List<Habitacion> darHabitacionsPorNombre (PersistenceManager pm, String nombreHabitacion) 
-	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacion () + " WHERE nombre = ?");
-		q.setResultClass(Habitacion.class);
-		q.setParameters(nombreHabitacion);
-		return (List<Habitacion>) q.executeList();
-	}
+	
 
 	
 	public List<Habitacion> darHabitacions (PersistenceManager pm)

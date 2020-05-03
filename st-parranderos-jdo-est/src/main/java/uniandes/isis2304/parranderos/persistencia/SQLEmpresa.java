@@ -31,10 +31,10 @@ public class SQLEmpresa {
 	}
 	
 	
-	public long adicionarEmpresa (PersistenceManager pm, long idEmpresa, String nombre, String ubicacion, String tipooferta, String tipo) 
+	public long adicionarEmpresa (PersistenceManager pm, String id, String nombre, String email) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaEmpresa () + "(id, nombre, ubicacion, tipooferta	, tipo) values (?, ?, ?, ?, ?)");
-        q.setParameters(idEmpresa, nombre, ubicacion, tipooferta, tipo);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaEmpresa () + "(id, nombre, email) values (?, ?, ?)");
+        q.setParameters(id, nombre, email);
         return (long) q.executeUnique();
 	}
 
