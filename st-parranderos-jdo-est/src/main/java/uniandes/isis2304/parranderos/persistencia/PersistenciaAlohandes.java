@@ -112,7 +112,7 @@ public class PersistenciaAlohandes
 	private SQLEmpresa sqlEmpresa;
 	private SQLCliente sqlCliente;
 	private SQLHostal sqlHostal;
-	private SQLHostalHabitacion sqlHostalHabitacion;
+	private SQLHabitacion sqlHabitacion;
 	private SQLHotel sqlHotel;
 	private SQLHotelHabitacion sqlHotelHabitacion;
 	private SQLPropietario sqlPropietario;
@@ -143,11 +143,8 @@ public class PersistenciaAlohandes
 		tablas.add ("Cliente");
 		tablas.add ("Reserva");
 		tablas.add ("Alojamiento");
-		tablas.add ("HostalHabitacion");
-		tablas.add ("HotelHabitacion");
+		tablas.add ("Habitacion");
 		tablas.add ("ViviendaUniversitaria");
-		tablas.add ("AptoSemestre");
-
 		tablas.add ("AptoTemporada");
 		tablas.add ("Servicio");
 		tablas.add ("Hostal");
@@ -233,10 +230,8 @@ public class PersistenciaAlohandes
 		sqlAlojamiento = new SQLAlojamiento(this);
 		sqlCliente = new SQLCliente(this);
 		sqlReserva = new SQLReserva(this);
-		sqlHostalHabitacion = new SQLHostalHabitacion(this);
-		sqlHotelHabitacion = new SQLHotelHabitacion (this);
+		sqlHabitacion = new SQLHabitacion(this);
 		sqlViviendaUniversitaria = new SQLViviendaUniversitaria(this);	
-		sqlAptoSemestre = new SQLAptoSemestre(this);		
 
 		sqlAptoTemporada = new SQLAptoTemporada(this);		
 
@@ -288,82 +283,70 @@ public class PersistenciaAlohandes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Bebedor de parranderos
 	 */
-	public String darTablaHostalHabitacion ()
+	public String darTablaHabitacion ()
 	{
 		return tablas.get (4);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Gustan de parranderos
-	 */
-	public String darTablaHotelHabitacion ()
-	{
-		return tablas.get (5);
-	}
+	
 
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Sirven de parranderos
 	 */
 	public String darTablaViviendaUniversitaria ()
 	{
-		return tablas.get (6);
+		return tablas.get (5);
 	}
 
-	/**
-	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
-	 */
-	public String darTablaAptoSemestre ()
-	{
-		return tablas.get (7);
-	}
+	
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaAptoTemporada ()
 	{
-		return tablas.get (8);
+		return tablas.get (6);
 	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaServicio ()
 	{
-		return tablas.get (9);
+		return tablas.get (7);
 	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaHostal ()
 	{
-		return tablas.get (10);
+		return tablas.get (8);
 	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaHotel ()
 	{
-		return tablas.get (11);
+		return tablas.get (9);
 	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaProveedor ()
 	{
-		return tablas.get (12);
+		return tablas.get (10);
 	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaEmpresa ()
 	{
-		return tablas.get (13);
+		return tablas.get (11);
 	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de Visitan de parranderos
 	 */
 	public String darTablaPropietario ()
 	{
-		return tablas.get (14);
+		return tablas.get (12);
 	}
 	
 	/**
