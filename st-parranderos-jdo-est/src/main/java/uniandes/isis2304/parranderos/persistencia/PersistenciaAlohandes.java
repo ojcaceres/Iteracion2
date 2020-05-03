@@ -43,6 +43,9 @@ import uniandes.isis2304.parranderos.negocio.Empresa;
 import uniandes.isis2304.parranderos.negocio.Gustan;
 import uniandes.isis2304.parranderos.negocio.Habitacion;
 import uniandes.isis2304.parranderos.negocio.Hostal;
+import uniandes.isis2304.parranderos.negocio.Hotel;
+import uniandes.isis2304.parranderos.negocio.Propietario;
+import uniandes.isis2304.parranderos.negocio.Proveedor;
 import uniandes.isis2304.parranderos.negocio.Sirven;
 import uniandes.isis2304.parranderos.negocio.Servicio;
 import uniandes.isis2304.parranderos.negocio.Visitan;
@@ -95,11 +98,6 @@ public class PersistenciaAlohandes
 	 * Atributo para el acceso a las sentencias SQL propias a PersistenciaParranderos
 	 */
 	private SQLUtil sqlUtil;
-
-	/**
-	 * Atributo para el acceso a la tabla Servicio de la base de datos
-	 */
-	private SQLAptoSemestre sqlAptoSemestre;
 
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
@@ -229,9 +227,9 @@ public class PersistenciaAlohandes
 		sqlServicio = new SQLServicio(this);
 		sqlAlojamiento = new SQLAlojamiento(this);
 		sqlCliente = new SQLCliente(this);
-		sqlReserva = new SQLReserva(this);
+		setSqlReserva(new SQLReserva(this));
 		sqlHabitacion = new SQLHabitacion(this);
-		sqlViviendaUniversitaria = new SQLViviendaUniversitaria(this);	
+		setSqlViviendaUniversitaria(new SQLViviendaUniversitaria(this));	
 
 		sqlAptoTemporada = new SQLAptoTemporada(this);		
 
@@ -242,7 +240,7 @@ public class PersistenciaAlohandes
 		sqlProveedor = new SQLProveedor(this);	
 		sqlEmpresa = new SQLEmpresa(this);		
 
-		sqlPropietario = new SQLPropietario(this);		
+		setSqlPropietario(new SQLPropietario(this));		
 
 
 		sqlUtil = new SQLUtil(this);
@@ -705,85 +703,7 @@ public class PersistenciaAlohandes
 		return sqlEmpresa.darEmpresaPorId (pmf.getPersistenceManager(), id);
 	}
 
-	/* ****************************************************************
-	 * 			Métodos para manejar SERVICIOS
-	 *****************************************************************/
-
-
-	public Hostal adicionarHostal(long idHostal, String nombre, String ubicacion, String horario, int telefono)
-	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx=pm.currentTransaction();
-		try
-		{
-			tx.begin();
-			long idServicio = nextval ();
-			long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idHostal, nombre, ubicacion, horario, telefono);
-			tx.commit();
-
-			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-
-			return new Hostal();
-		}
-		catch (Exception e)
-		{
-			//        	e.printStackTrace();
-			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return null;
-		}
-		finally
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-			pm.close();
-		}
-	}
-
-
-
-
-	public long eliminarHostalPorId (long id) 
-	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-		Transaction tx=pm.currentTransaction();
-		try
-		{
-			tx.begin();
-			long resp = sqlHostal.eliminarHostalPorId(pm, id);
-			tx.commit();
-			return resp;
-		}
-		catch (Exception e)
-		{
-			//        	e.printStackTrace();
-			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-			return -1;
-		}
-		finally
-		{
-			if (tx.isActive())
-			{
-				tx.rollback();
-			}
-			pm.close();
-		}
-	}
-
-
-	public List<Hostal> darHostals ()
-	{
-		return sqlHostal.darHostals (pmf.getPersistenceManager());
-	}
-
-
-
-
-	public Hostal darHostalPorId (long id)
-	{
-		return sqlHostal.darHostalPorId (pmf.getPersistenceManager(), id);
-	}
+	
 
 	/* ****************************************************************
 	 * 			Métodos para manejar SERVICIOS
@@ -863,10 +783,321 @@ public class PersistenciaAlohandes
 	public Habitacion darHabitacionPorId (long id)
 	{
 		return sqlHabitacion.darHabitacionPorId (pmf.getPersistenceManager(), id);
+	}/* ****************************************************************
+	 * 			Métodos para manejar HOSTAL
+	 *****************************************************************/
+
+
+	public Hostal adicionarHostal(long idHostal, String nombre, String ubicacion, String horario, int telefono)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long idServicio = nextval ();
+			long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idHostal, nombre, ubicacion, horario, telefono);
+			tx.commit();
+
+			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Hostal();
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+
+
+	public long eliminarHostalPorId (long id) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlHostal.eliminarHostalPorId(pm, id);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	public List<Hostal> darHostals ()
+	{
+		return sqlHostal.darHostals (pmf.getPersistenceManager());
+	}
+
+
+
+
+	public Hostal darHostalPorId (long id)
+	{
+		return sqlHostal.darHostalPorId (pmf.getPersistenceManager(), id);
 	}
 	/* ****************************************************************
-	 * 			Métodos para manejar SERVICIOS
+	 * 			Métodos para manejar HOTEL
 	 *****************************************************************/
+
+
+	public Hotel adicionarHotel(long idHotel, String nombre, String ubicacion, String horario, int telefono)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long idServicio = nextval ();
+			long tuplasInsertadas = sqlHotel.adicionarHotel(pm, idHotel, nombre, ubicacion, horario, telefono);
+			tx.commit();
+
+			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Hotel();
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	public long eliminarHotelPorId (long id) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlHotel.eliminarHotelPorId(pm, id);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	public List<Hotel> darHoteles ()
+	{
+		return sqlHotel.darHotels (pmf.getPersistenceManager());
+	}
+
+
+
+
+	public Hotel darHotelPorId (long id)
+	{
+		return sqlHotel.darHotelPorId (pmf.getPersistenceManager(), id);
+	}
+
+	/* ****************************************************************
+	 * 			Métodos para manejar PROVEEDOR
+	 *****************************************************************/
+
+
+	public Propietario adicionarPropietario(String idPropietario,String tipo, String nombre, int telefono )
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long idServicio = nextval ();
+			long tuplasInsertadas = sqlPropietario.adicionarPropietario(pm, idPropietario, tipo, nombre, telefono);
+			tx.commit();
+
+			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Propietario();
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+
+
+	public long eliminarPropietarioPorId (long id) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlPropietario.eliminarPropietarioPorId(pm, id);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	public List<Propietario> darPropietarios ()
+	{
+		return sqlPropietario.darPropietarios (pmf.getPersistenceManager());
+	}
+
+
+
+
+	public Propietario darPropietarioPorId (long id)
+	{
+		return sqlPropietario.darPropietarioPorId (pmf.getPersistenceManager(), id);
+	}
+	/* ****************************************************************
+	 * 			Métodos para manejar PROVEEDOR
+	 *****************************************************************/
+
+
+	public Proveedor adicionarProveedor(String idProveedor,String tipo, String nombre )
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long idServicio = nextval ();
+			long tuplasInsertadas = sqlProveedor.adicionarProveedor(pm, idProveedor, tipo, nombre);
+			tx.commit();
+
+			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+
+			return new Proveedor();
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+
+
+	public long eliminarProveedorPorId (long id) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long resp = sqlProveedor.eliminarProveedorPorId(pm, id);
+			tx.commit();
+			return resp;
+		}
+		catch (Exception e)
+		{
+			//        	e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return -1;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+
+	public List<Proveedor> darProveedores ()
+	{
+		return sqlProveedor.darProveedors (pmf.getPersistenceManager());
+	}
+
+
+
+
+	public Proveedor darProveedorPorId (long id)
+	{
+		return sqlProveedor.darProveedorPorId (pmf.getPersistenceManager(), id);
+	}
 
 	/* ****************************************************************
 	 * 			Métodos para manejar SERVICIOS
@@ -981,6 +1212,30 @@ public class PersistenciaAlohandes
 			pm.close();
 		}
 
+	}
+
+	public SQLReserva getSqlReserva() {
+		return sqlReserva;
+	}
+
+	public void setSqlReserva(SQLReserva sqlReserva) {
+		this.sqlReserva = sqlReserva;
+	}
+
+	public SQLAlojamiento getSqlViviendaUniversitaria() {
+		return sqlViviendaUniversitaria;
+	}
+
+	public void setSqlViviendaUniversitaria(SQLAlojamiento sqlViviendaUniversitaria) {
+		this.sqlViviendaUniversitaria = sqlViviendaUniversitaria;
+	}
+
+	public SQLPropietario getSqlPropietario() {
+		return sqlPropietario;
+	}
+
+	public void setSqlPropietario(SQLPropietario sqlPropietario) {
+		this.sqlPropietario = sqlPropietario;
 	}
 
 
