@@ -1,5 +1,6 @@
 package uniandes.isis2304.parranderos.persistencia;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -31,10 +32,10 @@ public class SQLReserva {
 	}
 	
 	
-	public long adicionarReserva (PersistenceManager pm, long idReserva, String nombre, String ubicacion, String tipooferta, String tipo) 
+	public long adicionarReserva (PersistenceManager pm, String idReserva, Date fechaConfirmacion, String fechaCheckin, String fechaCheckout, int precioTotal) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva () + "(id, nombre, ubicacion, tipooferta	, tipo) values (?, ?, ?, ?, ?)");
-        q.setParameters(idReserva, nombre, ubicacion, tipooferta, tipo);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pp.darTablaReserva () + "(id, fechaConfirmacion, fechaCheckin, fechaCheckout, precioTotal) values (?, ?, ?, ?, ?)");
+        q.setParameters(idReserva, fechaConfirmacion, fechaCheckin, fechaCheckout, precioTotal);
         return (long) q.executeUnique();
 	}
 

@@ -1,6 +1,6 @@
 
 
-package uniandes.isis2304.parranderos.interfazApp;
+package uniandes.isis2304.Alohandes.interfazApp;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
