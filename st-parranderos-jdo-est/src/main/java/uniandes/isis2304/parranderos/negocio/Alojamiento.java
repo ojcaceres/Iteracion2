@@ -20,32 +20,20 @@ package uniandes.isis2304.parranderos.negocio;
  *
  * @author Germán Bravo
  */
-public class Alojamiento implements VOAlojamiento
+public abstract class Alojamiento implements VOAlojamiento
 {
 	/* ****************************************************************
 	 * 			Atributos
 	 *****************************************************************/
-	/**
-	 * El identificador ÚNICO de los bares
-	 */
+
 	private long id;
 	
-	/**
-	 * El nombre del bar
-	 */
-	private String ubicacion;
 
-	/**
-	 * La ciudad donde se encuentra el bar
-	 */
 	private String nombre;
 
 	private String tipoOferta;
 	
-	/**
-	 * El presupuesto del bar (ALTO, MEDIO, BAJO)
-	 */
-	private String tipo;
+
 	
 
 	/* ****************************************************************
@@ -58,18 +46,16 @@ public class Alojamiento implements VOAlojamiento
     {
     	this.id = 0;
 		this.nombre = "";
-		this.tipo = "";
-		this.ubicacion = "";
+		this.tipoOferta = "";
 
 	}
 
 	
-    public Alojamiento(long id, String nombre, String tipo, String ubicacion) 
+    public Alojamiento(long id, String nombre, String tipoOferta, String ubicacion) 
     {
     	this.id = id;
 		this.nombre = nombre;
-		this.tipo = tipo;
-		this.ubicacion = ubicacion;
+		this.tipoOferta = tipoOferta;
 	}
 
     
@@ -97,10 +83,7 @@ public class Alojamiento implements VOAlojamiento
 	}
 	
 	
-	public String getTipo() 
-	{
-		return tipo;
-	}
+	
 	
 	
 	public void setTipoOferta(String tipoOferta) 
@@ -112,33 +95,21 @@ public class Alojamiento implements VOAlojamiento
 	{
 		return tipoOferta;
 	}
-	
-	
-	public void setTipo(String tipo) 
-	{
-		this.tipo = tipo;
-	}
 
-	public String getUbicacion() 
-	{
-		return ubicacion;
-	}
-	
-	
-	public void setUbicacion(String Ubicacion) 
-	{
-		this.ubicacion= ubicacion;
-	}
-	
-	
-	
-	@Override
 
-	public String toString() 
-	{
-		return "Alojamiento [id=" + id + ", nombre=" + nombre + ", tipoOferta=" + tipoOferta + ", tipo=" + tipo + ", ubicacion=" + ubicacion
-				+ "]";
-	}
 	
+
+	
+//	
+//	@Override
+//	/**
+//	 * @return Una cadena de caracteres con todos los atributos del bar
+//	 */
+//	public String toString() 
+//	{
+//		return "Alojamiento [id=" + id + ", nombre=" + nombre + ", tipoOferta=" + tipoOferta + ", tipo=" + tipo + ", ubicacion=" + ubicacion
+//				+ "]";
+//	}
+//	
 
 }

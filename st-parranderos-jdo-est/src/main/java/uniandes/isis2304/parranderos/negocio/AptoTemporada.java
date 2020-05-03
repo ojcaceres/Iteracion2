@@ -19,6 +19,9 @@ public class AptoTemporada extends Alojamiento implements VOAptoTemporada
 
 	private String tipoOferta;
 	private Integer precioTemporada;
+
+
+	private int precio;
 	/* **********************
 	 * 			Métodos
 	 ***********************/
@@ -26,11 +29,13 @@ public class AptoTemporada extends Alojamiento implements VOAptoTemporada
 	public AptoTemporada() 
 	{
 		this.id = 0;
+		this.setPrecio(0);
+		this.habitaciones = 0;
 
 		this.menaje = "";
-		this.habitaciones = 0;
+		this.ubicacion = "";
+
 		this.tipoOferta = "";
-		this.setPrecioTemporada(0);
 	}
 
 	/**
@@ -101,6 +106,14 @@ public class AptoTemporada extends Alojamiento implements VOAptoTemporada
 
 	public void setPrecioTemporada(Integer i) {
 		this.precioTemporada = i;
+	}
+
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
 
 }
