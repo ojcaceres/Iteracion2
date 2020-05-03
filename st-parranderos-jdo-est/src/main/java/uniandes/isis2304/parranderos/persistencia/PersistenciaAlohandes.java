@@ -41,6 +41,7 @@ import uniandes.isis2304.parranderos.negocio.Bebida;
 import uniandes.isis2304.parranderos.negocio.Cliente;
 import uniandes.isis2304.parranderos.negocio.Empresa;
 import uniandes.isis2304.parranderos.negocio.Gustan;
+import uniandes.isis2304.parranderos.negocio.Habitacion;
 import uniandes.isis2304.parranderos.negocio.Hostal;
 import uniandes.isis2304.parranderos.negocio.Sirven;
 import uniandes.isis2304.parranderos.negocio.Servicio;
@@ -114,7 +115,6 @@ public class PersistenciaAlohandes
 	private SQLHostal sqlHostal;
 	private SQLHabitacion sqlHabitacion;
 	private SQLHotel sqlHotel;
-	private SQLHotelHabitacion sqlHotelHabitacion;
 	private SQLPropietario sqlPropietario;
 	private SQLProveedor sqlProveedor;
 	private SQLReserva sqlReserva;
@@ -630,7 +630,7 @@ public class PersistenciaAlohandes
 	 *****************************************************************/
 
 
-	public Empresa adicionarEmpresa(long idEmpresa, String nombre, String ubicacion, String tipooferta)
+	public Empresa adicionarEmpresa(String id, String nombre, String email )
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -638,7 +638,7 @@ public class PersistenciaAlohandes
 		{
 			tx.begin();
 			long idServicio = nextval ();
-			long tuplasInsertadas = sqlEmpresa.adicionarEmpresa(pm, idEmpresa, nombre, ubicacion, tipooferta);
+			long tuplasInsertadas = sqlEmpresa.adicionarEmpresa(pm, id, nombre, email);
 			tx.commit();
 
 			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -710,7 +710,7 @@ public class PersistenciaAlohandes
 	 *****************************************************************/
 
 
-	public Hostal adicionarHostal(long idHostal, String nombre, String ubicacion, String tipooferta)
+	public Hostal adicionarHostal(long idHostal, String nombre, String ubicacion, String horario, int telefono)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -718,7 +718,7 @@ public class PersistenciaAlohandes
 		{
 			tx.begin();
 			long idServicio = nextval ();
-			long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idHostal, nombre, ubicacion, tipooferta);
+			long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idHostal, nombre, ubicacion, horario, telefono);
 			tx.commit();
 
 			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
@@ -790,7 +790,7 @@ public class PersistenciaAlohandes
 	 *****************************************************************/
 
 
-	public Hostal adicionarHostal(long idHostal, String nombre, String ubicacion, String tipooferta)
+	public Habitacion adicionarHabitacion(String id,String horario, int precioNoche, int capacidad, String tipoOferta)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
@@ -798,12 +798,12 @@ public class PersistenciaAlohandes
 		{
 			tx.begin();
 			long idServicio = nextval ();
-			long tuplasInsertadas = sqlHostal.adicionarHostal(pm, idHostal, nombre, ubicacion, tipooferta);
+			long tuplasInsertadas = sqlHabitacion.adicionarHabitacion(pm, id, horario, precioNoche, capacidad, tipoOferta);
 			tx.commit();
 
-			log.trace ("Inserción de tipo de bebida: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+			log.trace ("Inserción de tipo de bebida: " + id + ": " + tuplasInsertadas + " tuplas insertadas");
 
-			return new Hostal();
+			return new Habitacion();
 		}
 		catch (Exception e)
 		{
@@ -824,14 +824,14 @@ public class PersistenciaAlohandes
 
 
 
-	public long eliminarHostalPorId (long id) 
+	public long eliminarHabitacionPorId (long id) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
 		Transaction tx=pm.currentTransaction();
 		try
 		{
 			tx.begin();
-			long resp = sqlHostal.eliminarHostalPorId(pm, id);
+			long resp = sqlHabitacion.eliminarHabitacionPorId(pm, id);
 			tx.commit();
 			return resp;
 		}
@@ -852,17 +852,17 @@ public class PersistenciaAlohandes
 	}
 
 
-	public List<Hostal> darHostals ()
+	public List<Habitacion> darHabitaciones ()
 	{
-		return sqlHostal.darHostals (pmf.getPersistenceManager());
+		return sqlHabitacion.darHabitaciones (pmf.getPersistenceManager());
 	}
 
 
 
 
-	public Hostal darHostalPorId (long id)
+	public Habitacion darHabitacionPorId (long id)
 	{
-		return sqlHostal.darHostalPorId (pmf.getPersistenceManager(), id);
+		return sqlHabitacion.darHabitacionPorId (pmf.getPersistenceManager(), id);
 	}
 	/* ****************************************************************
 	 * 			Métodos para manejar SERVICIOS

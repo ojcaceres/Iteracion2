@@ -62,7 +62,7 @@ public class SQLHabitacion {
 	
 
 	
-	public List<Habitacion> darHabitacions (PersistenceManager pm)
+	public List<Habitacion> darHabitaciones (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pp.darTablaHabitacion ());
 		q.setResultClass(Habitacion.class);
