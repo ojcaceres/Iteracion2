@@ -35,20 +35,15 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.parranderos.negocio.Alojamiento;
 import uniandes.isis2304.parranderos.negocio.AptoTemporada;
-import uniandes.isis2304.parranderos.negocio.Bar;
-import uniandes.isis2304.parranderos.negocio.Bebedor;
-import uniandes.isis2304.parranderos.negocio.Bebida;
+
 import uniandes.isis2304.parranderos.negocio.Cliente;
 import uniandes.isis2304.parranderos.negocio.Empresa;
-import uniandes.isis2304.parranderos.negocio.Gustan;
 import uniandes.isis2304.parranderos.negocio.Habitacion;
 import uniandes.isis2304.parranderos.negocio.Hostal;
 import uniandes.isis2304.parranderos.negocio.Hotel;
 import uniandes.isis2304.parranderos.negocio.Propietario;
 import uniandes.isis2304.parranderos.negocio.Proveedor;
-import uniandes.isis2304.parranderos.negocio.Sirven;
 import uniandes.isis2304.parranderos.negocio.Servicio;
-import uniandes.isis2304.parranderos.negocio.Visitan;
 
 /**
  * Clase para el manejador de persistencia del proyecto Parranderos
@@ -117,7 +112,7 @@ public class PersistenciaAlohandes
 	private SQLProveedor sqlProveedor;
 	private SQLReserva sqlReserva;
 	private SQLServicio sqlServicio;
-	private SQLAlojamiento sqlViviendaUniversitaria;
+	private SQLViviendaUniversitaria sqlViviendaUniversitaria;
 	/**
 	 * Atributo para el acceso a la tabla BEBIDA de la base de datos
 	 */
@@ -229,7 +224,7 @@ public class PersistenciaAlohandes
 		sqlCliente = new SQLCliente(this);
 		setSqlReserva(new SQLReserva(this));
 		sqlHabitacion = new SQLHabitacion(this);
-		setSqlViviendaUniversitaria(new SQLViviendaUniversitaria(this));	
+	sqlViviendaUniversitaria=new SQLViviendaUniversitaria(this);	
 
 		sqlAptoTemporada = new SQLAptoTemporada(this);		
 
@@ -1192,7 +1187,7 @@ public class PersistenciaAlohandes
 		try
 		{
 			tx.begin();
-			long [] resp = sqlUtil.limpiarParranderos (pm);
+			long [] resp = sqlUtil.limpiarAlohandes(pm) ;
 			tx.commit ();
 			log.info ("Borrada la base de datos");
 			return resp;
@@ -1222,11 +1217,11 @@ public class PersistenciaAlohandes
 		this.sqlReserva = sqlReserva;
 	}
 
-	public SQLAlojamiento getSqlViviendaUniversitaria() {
+	public SQLViviendaUniversitaria getSqlViviendaUniversitaria() {
 		return sqlViviendaUniversitaria;
 	}
 
-	public void setSqlViviendaUniversitaria(SQLAlojamiento sqlViviendaUniversitaria) {
+	public void setSqlViviendaUniversitaria(SQLViviendaUniversitaria sqlViviendaUniversitaria) {
 		this.sqlViviendaUniversitaria = sqlViviendaUniversitaria;
 	}
 
@@ -1236,6 +1231,10 @@ public class PersistenciaAlohandes
 
 	public void setSqlPropietario(SQLPropietario sqlPropietario) {
 		this.sqlPropietario = sqlPropietario;
+	}
+
+	public String darSeqAlohandes() {
+		return null;
 	}
 
 
