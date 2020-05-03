@@ -26,6 +26,9 @@ public class AptoTemporada extends Alojamiento implements VOAptoTemporada
 	 * 			Métodos
 	 ***********************/
 
+
+	private String ubicacion;
+
 	public AptoTemporada() 
 	{
 		this.id = 0;
@@ -114,6 +117,18 @@ public class AptoTemporada extends Alojamiento implements VOAptoTemporada
 
 	public void setPrecio(int precio) {
 		this.precio = precio;
+	}
+
+	@Override
+	public String getTipo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getUbicacion() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

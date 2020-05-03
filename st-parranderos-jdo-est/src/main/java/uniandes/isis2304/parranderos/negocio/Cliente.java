@@ -15,9 +15,8 @@
 
 package uniandes.isis2304.parranderos.negocio;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Clase para modelar el concepto BEBEDOR del negocio de los Parranderos
@@ -56,7 +55,7 @@ public class Cliente implements VOCliente
 	private Date fechaNacimiento;
 	private String vinculacion;
 
-	private List<Reserva> reservas;
+	private ArrayList<Reserva> reservas;
 
 
 	
@@ -78,7 +77,8 @@ public class Cliente implements VOCliente
 		this.fechaNacimiento = new Date();
 		this.vinculacion = "";
 
-		reservas = new List<Reserva > ();
+		reservas = new ArrayList<Reserva>() {
+		};
 
 	}
 
@@ -89,9 +89,9 @@ public class Cliente implements VOCliente
 	 * @param ciudad - La ciudad del bebedor
 	 * @param presupuesto - El presupuesto del bebedor (ALTO, MEDIO, BAJO)
 	 */
-	public Cliente(long id, String nombre, String ciudad, long telefono, String email, String contrasena, String genero, Date fechaNacimiento, String vinculacion) 
+	public Cliente(long documento, String nombre, String ciudad, int telefono, String email, String contrasena, String genero, Date fechaNacimiento, String vinculacion) 
 	{
-		this.documento = id;
+		this.documento = documento;
 		this.nombre = nombre;
 		this.ciudad = ciudad;
 		this.telefono = telefono;
@@ -101,26 +101,10 @@ public class Cliente implements VOCliente
 		this.fechaNacimiento = fechaNacimiento;
 		this.vinculacion = vinculacion;
 		// Estos valores no se conocen en el momento de la construcción del bebedor
-		reservas = new List<Reserva>() {
-		};
+		reservas = new ArrayList<>() ;
 
 	}
 
-	/**
-	 * @return El id del bebedor
-	 */
-	public long getId() 
-	{
-		return documento;
-	}
-
-	/**
-	 * @param id - El nuevo id del bebedor
-	 */
-	public void setId(long id) 
-	{
-		this.documento = documento;
-	}
 
 	/**
 	 * @return El nombre del bebedor
@@ -167,20 +151,11 @@ public class Cliente implements VOCliente
 		return email;
 	}
 
-	/**
-	 * @param ciudad - La nueva ciudad del bebedor
-	 */
-	public void setContraseña(String email) 
-	{
-		this.email = email;
-	}
-	
-	
 
 	/**
 	 * @return La lista de visitasRealizadas por el bebedor 
 	 */
-	public List<Object []> getReservas() 
+	public ArrayList<Reserva> getReservas() 
 	{
 		return reservas;
 	}
@@ -188,7 +163,7 @@ public class Cliente implements VOCliente
 	/**
 	 * @param visitasRealizadas - La nueva lista de visitas del bebedor
 	 */
-	public void setReservas (List<Object []> reservas) 
+	public void setReservas (ArrayList<Reserva> reservas) 
 	{
 		this.reservas = reservas;
 	}
@@ -273,6 +248,12 @@ public class Cliente implements VOCliente
 
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
+	}
+
+	@Override
+	public long getDocumento() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 
