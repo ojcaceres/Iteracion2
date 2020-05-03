@@ -55,12 +55,8 @@ public class Cliente implements VOCliente
 	private String genero;
 	private Date fechaNacimiento;
 	private String vinculacion;
-	/**
-	 * Las visitas realizadas por el bebedor. 
-	 * Cada visita es una tripleta de objetos [Bar, Timestamp, String], que representan el bar, la fecha 
-	 * y el horario en que el bebedor realizó la visita
-	 */
-	private List<Object []> reservas;
+
+	private List<Reserva> reservas;
 
 
 	
@@ -82,7 +78,7 @@ public class Cliente implements VOCliente
 		this.fechaNacimiento = new Date();
 		this.vinculacion = "";
 
-		reservas = new LinkedList<Object []> ();
+		reservas = new List<Reserva > ();
 
 	}
 
@@ -105,7 +101,8 @@ public class Cliente implements VOCliente
 		this.fechaNacimiento = fechaNacimiento;
 		this.vinculacion = vinculacion;
 		// Estos valores no se conocen en el momento de la construcción del bebedor
-		reservas = new LinkedList<Object []> ();
+		reservas = new List<Reserva>() {
+		};
 
 	}
 

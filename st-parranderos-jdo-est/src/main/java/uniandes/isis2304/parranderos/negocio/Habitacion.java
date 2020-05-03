@@ -1,6 +1,6 @@
 package uniandes.isis2304.parranderos.negocio;
 
-public class Habitacion  implements VOHabitacion 
+public class Habitacion  extends Alojamiento implements VOHabitacion 
 {
 	/* **********************
 	 * 			Atributos

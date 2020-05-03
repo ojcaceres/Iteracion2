@@ -3,7 +3,7 @@
 package uniandes.isis2304.parranderos.negocio;
 
 
-public class AptoTemporada  implements VOAptoTemporada
+public class AptoTemporada extends Alojamiento implements VOAptoTemporada
 {
 	/* **********************
 	 * 			Atributos

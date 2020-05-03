@@ -63,14 +63,7 @@ public class Alojamiento implements VOAlojamiento
 
 	}
 
-	/**
-	 * Constructor con valores
-	 * @param id - El id del bart
-	 * @param nombre - El nombre del bar
-	 * @param ciudad - La ciudad del bar
-	 * @param presupuesto - El presupuesto del bar (ALTO, MEDIO, BAJO)
-	 * @param cantSedes - Las sedes del bar (Mayor que 0)
-	 */
+	
     public Alojamiento(long id, String nombre, String tipo, String ubicacion) 
     {
     	this.id = id;
@@ -79,49 +72,37 @@ public class Alojamiento implements VOAlojamiento
 		this.ubicacion = ubicacion;
 	}
 
-    /**
-	 * @return El id del bar
-	 */
+    
 	public long getId() 
 	{
 		return id;
 	}
 	
-	/**
-	 * @param id - El nuevo id del bar
-	 */
+	
 	public void setId(long id) 
 	{
 		this.id = id;
 	}
 	
-	/**
-	 * @return el nombre del bar
-	 */
+	
 	public String getNombre() 
 	{
 		return nombre;
 	}
 	
-	/**
-	 * @param nombre El nuevo nombre del bar
-	 */
+
 	public void setNombre(String nombre) 
 	{
 		this.nombre = nombre;
 	}
 	
-	/**
-	 * @return la ciudad del bar
-	 */
+	
 	public String getTipo() 
 	{
 		return tipo;
 	}
 	
-	/**
-	 * @param ciudad - La nueva ciudad del bar
-	 */
+	
 	public void setTipoOferta(String tipoOferta) 
 	{
 		this.tipoOferta = tipoOferta;
@@ -132,25 +113,18 @@ public class Alojamiento implements VOAlojamiento
 		return tipoOferta;
 	}
 	
-	/**
-	 * @param ciudad - La nueva ciudad del bar
-	 */
+	
 	public void setTipo(String tipo) 
 	{
 		this.tipo = tipo;
 	}
-	
-	/**
-	 * @return El presupuesto del bar
-	 */
+
 	public String getUbicacion() 
 	{
 		return ubicacion;
 	}
 	
-	/**
-	 * @param presupuesto - El nuevo presupuesto del bar (ALTO, MEDIO, BAJOO)
-	 */
+	
 	public void setUbicacion(String Ubicacion) 
 	{
 		this.ubicacion= ubicacion;
@@ -159,9 +133,7 @@ public class Alojamiento implements VOAlojamiento
 	
 	
 	@Override
-	/**
-	 * @return Una cadena de caracteres con todos los atributos del bar
-	 */
+
 	public String toString() 
 	{
 		return "Alojamiento [id=" + id + ", nombre=" + nombre + ", tipoOferta=" + tipoOferta + ", tipo=" + tipo + ", ubicacion=" + ubicacion
